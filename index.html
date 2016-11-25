@@ -259,6 +259,174 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.taneroom.cn/2016/11/25/web安全（4）-sql注入/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="TaneRoom">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="TaneRoom">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="TaneRoom" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/25/web安全（4）-sql注入/" itemprop="url">
+                  web安全（4）-- sql注入
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-25T16:37:53+08:00">
+                2016-11-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2016/11/25/web安全（4）-sql注入/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/25/web安全（4）-sql注入/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/11/25/web安全（4）-sql注入/" class="leancloud_visitors" data-flag-title="web安全（4）-- sql注入">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1-1-漏洞描述"><a href="#1-1-漏洞描述" class="headerlink" title="1.1 漏洞描述"></a>1.1 漏洞描述</h2><p>所谓SQL注入，就是通过把SQL命令插入到Web表单提交或输入域名或页面请求的查询字符串，最终达到欺骗服务器执行恶意的SQL命令。具体来说，它是利用现有应用程序，将（恶意）的SQL命令注入到后台数据库引擎执行的能力，它可以通过在Web表单中输入（恶意）SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句。比如先前的很多影视网站泄露VIP会员密码大多就是通过WEB表单递交查询字符暴出的，这类表单特别容易受到SQL注入式攻击。</p>
+<p>根据相关技术原理，SQL注入可以分为平台层注入和代码层注入。前者由不安全的数据库配置或数据库平台的漏洞所致；后者主要是由于程序员对输入未进行细致地过滤，从而执行了非法的数据查询。基于此，SQL注入的产生原因通常表现在以下几方面：<br>①不当的类型处理；<br>②不安全的数据库配置；<br>③不合理的查询集处理；<br>④不当的错误处理；<br>⑤转义字符处理不合适；<br>⑥多个提交处理不当。</p>
+<h2 id="1-2-漏洞危害"><a href="#1-2-漏洞危害" class="headerlink" title="1.2 漏洞危害"></a>1.2 漏洞危害</h2><blockquote>
+<p>数据库信息泄漏：数据库中存放的用户的隐私信息的泄露。<br>网页篡改：通过操作数据库对特定网页进行篡改。<br>网站被挂马，传播恶意软件：修改数据库一些字段的值，嵌入网马链接，进行挂马攻击。<br>数据库被恶意操作：数据库服务器被攻击，数据库的系统管理员帐户被窜改。<br>服务器被远程控制，被安装后门(WEBSHELL)。经由数据库服务器提供的操作系统支持，让黑客得以修改或控制操&gt;作系统。<br>破坏硬盘数据，瘫痪全系统。</p>
+</blockquote>
+<h2 id="1-3-漏洞演示"><a href="#1-3-漏洞演示" class="headerlink" title="1.3 漏洞演示"></a>1.3 漏洞演示</h2><p>注入攻击的本质就是把用户输入的数据当做代码来执行，这里有两个关键条件：第一个是用户能够控制输入，第二个是原本程序要执行的代码，拼接了用户输入的数据。<br>比如这个sql：”select id from users where username = ‘“+username +”‘ and password = ‘“ + password +”‘“ 。如果用户按着设计者的要求输入正常的用户名和密码，这个没有任何问题，可以正常登陆。但是这个sql因为应用了sql拼接，用户是可以控制输入的，所以如果用户拼接了可执行的数据，例如：username = “”，password = “‘ or ‘1’ = ‘1”；那么sql就变成了”select id from users where username = ‘’ and password = ‘’ or ‘1’ = ‘1’”，它等价于select id from users where ‘1’ = ‘1’。这个SQL是恒真的，所以它就绕过了用户名和密码，登录成功了！<br> <strong>注入步骤：</strong></p>
+<blockquote>
+<p>1)寻找注入点(URL地址栏、登陆界面、留言板、搜索框等)<br>2)用户自己构造SQL语句(如：’ or 1 = 1)<br>3)将SQL语句发送给数据库管理系统(DBMS)<br>4)DBMS接收请求，并将该请求解释成机器代码指令，执行必要的存取操作<br>5)DBMS接收返回的结果，并处理，返回给用户</p>
+</blockquote>
+<p>因为用户构造了特殊的SQL语句，必定返回特殊的结果(只要你的SQL语句够灵活的话)。</p>
+<h2 id="1-4-修复方案"><a href="#1-4-修复方案" class="headerlink" title="1.4 修复方案"></a>1.4 修复方案</h2><p>1)基本上大家都知道采用SQL语句预编译和绑定变量，是防御SQL注入的最佳方法。但是其中的深层次原因就不见得都理解了。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">String sql = "<span class="keyword">select</span> <span class="keyword">id</span>, <span class="keyword">no</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span>=?<span class="string">";</span></div><div class="line">PreparedStatement ps = conn.prepareStatement(sql);</div><div class="line">ps.setInt(1, id);</div><div class="line">ps.executeQuery();</div></pre></td></tr></table></figure></p>
+<p>如上所示，就是典型的采用 SQL语句预编译和绑定变量 。为什么这样就可以防止SQL注入呢？<br>其原因就是：采用了PreparedStatement，就会将SQL语句：”select id, no from user where id=?” 预先编译好，也就是SQL引擎会预先进行语法分析，产生语法树，生成执行计划，也就是说，后面你输入的参数，无论你输入的是什么，都不会影响该SQL语句的语法结构了，因为语法分析已经完成了，而语法分析主要是分析SQL命令，比如 select ,from ,where ,and, or ,order by 等等。所以即使你后面输入了这些SQL命令，也不会被当成SQL命令来执行了，因为这些SQL命令的执行， 必须先的通过语法分析，生成执行计划，既然语法分析已经完成，已经预编译过了，那么后面输入的参数，是绝对不可能作为SQL命令来执行的，只会被当做字符串字面值参数。所以SQL语句预编译可以防御SQL注入。<br>2)但是不是所有场景都能够采用SQL语句预编译，有一些场景必须的采用字符串拼接的方式，此时，我们严格检查参数的数据类型，还有可以使用一些安全函数来防止SQL注入。<br>比如 String sql = “select id,no from user where id=” + id;<br>在接收到用户输入的参数时，我们就严格检查id，只能是int型。复杂情况可以使用正则表达式来判断。这样也是可以防止SQL注入的。<br>安全函数的使用，比如：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">MySQLCodec codec = new MySQLCodec(Mode.STANDARD);</div><div class="line">name = ESAPI.encoder().encodeForSQL(codec, name);</div><div class="line">String sql = "<span class="keyword">select</span> <span class="keyword">id</span>,<span class="keyword">no</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">" + name;</span></div></pre></td></tr></table></figure></p>
+<p>ESAPI.encoder().encodeForSQL(codec, name)，该函数会将name中包含的一些特殊字符进行编码，这样SQL引擎就不会将name中的字符串当成SQL命令来进行语法分析了。<br>注：实际项目中，一般我们都是采用各种的框架，比如ibatis,hibernate,mybatis等等。他们一般也默认就是SQL预编译的。对于ibatis/mybatis，如果使用的是#{name}形式的，那么就是SQL预编译，使用${name}就不是SQL预编译的。<br>3)使用正则表达式过滤：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">private String CHECKSQL = “^(.+)<span class="tag">\<span class="name">\</span></span>sand<span class="tag">\<span class="name">\</span></span>s(.+)|(.+)<span class="tag">\<span class="name">\</span></span>sor(.+)<span class="tag">\<span class="name">\</span></span>s<span class="formula">$”;</span></div><div class="line">//判断是否匹配：</div><div class="line">Pattern.matches(CHECKSQL,targerStr);</div><div class="line"></div><div class="line">//下面是具体的正则表达式：</div><div class="line">//检测SQL meta-characters的正则表达式 ：</div><div class="line">/(<span class="tag">\<span class="name">%</span></span>27)|(<span class="tag">\<span class="name">’</span></span>)|(<span class="tag">\<span class="name">-</span></span><span class="tag">\<span class="name">-</span></span>)|(<span class="tag">\<span class="name">%</span></span>23)|(#)/ix</div><div class="line"></div><div class="line">//修正检测SQL meta-characters的正则表达式 ：</div><div class="line">/((<span class="tag">\<span class="name">%</span></span>3D)|(=))[^<span class="tag">\<span class="name">n</span></span>]*((<span class="tag">\<span class="name">%</span></span>27)|(<span class="tag">\<span class="name">’</span></span>)|(<span class="tag">\<span class="name">-</span></span><span class="tag">\<span class="name">-</span></span>)|(<span class="tag">\<span class="name">%</span></span>3B)|(:))/i</div><div class="line"></div><div class="line">//典型的SQL注入攻击的正则表达式 ：</div><div class="line">/<span class="tag">\<span class="name">w*</span></span>((<span class="tag">\<span class="name">%</span></span>27)|(<span class="tag">\<span class="name">’</span></span>))((<span class="tag">\<span class="name">%</span></span>6F)|o|(<span class="tag">\<span class="name">%</span></span>4F))((<span class="tag">\<span class="name">%</span></span>72)|r|(<span class="tag">\<span class="name">%</span></span>52))/ix</div><div class="line"></div><div class="line">//检测SQL注入，UNION查询关键字的正则表达式 ：</div><div class="line">/((<span class="tag">\<span class="name">%</span></span>27)|(<span class="tag">\<span class="name">’</span></span>))union/ix(<span class="tag">\<span class="name">%</span></span>27)|(<span class="tag">\<span class="name">’</span></span>)</div><div class="line"></div><div class="line">//检测MSSQL Server SQL注入攻击的正则表达式：</div><div class="line">/exec(<span class="tag">\<span class="name">s</span></span>|<span class="tag">\<span class="name">+</span></span>)+(s|x)p<span class="tag">\<span class="name">w</span></span>+/ix</div><div class="line"></div><div class="line">//其实可以简单的使用replace方法也可以实现上诉功能：</div><div class="line">public static String TransactSQLInjection(String str)&#123;</div><div class="line">    return str.replaceAll(".*([';]+|(--)+).*", " ");</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>总的来说有以下几点：</p>
+<blockquote>
+<p>a)永远不要信任用户的输入，要对用户的输入进行校验，可以通过正则表达式，或限制长度，对单引号和双”-“进行转换等。<br>b)永远不要使用动态拼装SQL，可以使用参数化的SQL或者直接使用存储过程进行数据查询存取。<br>c)永远不要使用管理员权限的数据库连接，为每个应用使用单独的权限有限的数据库连接。<br>d)不要把机密信息明文存放，请加密或者hash掉密码和敏感的信息。<br>e)应用的异常信息应该给出尽可能少的提示，最好使用自定义的错误信息对原始错误信息进行包装，把异常信息存放在独立的表中。</p>
+</blockquote>
+<h2 id="1-5-相关参考"><a href="#1-5-相关参考" class="headerlink" title="1.5 相关参考"></a>1.5 相关参考</h2><p><a href="http://www.cnblogs.com/smilewxt/p/4229810.html" target="_blank" rel="external">http://www.cnblogs.com/smilewxt/p/4229810.html</a><br><a href="http://blog.csdn.net/quiet_girl/article/details/50586809" target="_blank" rel="external">http://blog.csdn.net/quiet_girl/article/details/50586809</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://www.taneroom.cn/2016/11/25/web安全（3）-ClickJacking（点击劫持）/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -749,7 +917,29 @@
 <h2 id="XSS攻击的生效方式（按危害大小排序）："><a href="#XSS攻击的生效方式（按危害大小排序）：" class="headerlink" title="XSS攻击的生效方式（按危害大小排序）："></a>XSS攻击的生效方式（按危害大小排序）：</h2><h3 id="1）构造URL"><a href="#1）构造URL" class="headerlink" title="1）构造URL"></a>1）构造URL</h3><p>XSS攻击者通过构造URL的方式构造了一个有问题的页面；当其他人点击了此页面后，会发现页面出错，或者被暗中执行了某些js脚本，这时，攻击行为才真正生效。<br>一般来说，动态页面中会将url中的部分内容回写在页面中。以百度的搜索为例：<br><img src="http://www.taneroom.cn/images/2016/11/25/xss.png" alt="XSS注入" title="XSS注入"><br>搜索结果页中，会在标题中和搜索框中回写用户输入的内容。从页面的源代码中，我们看到，这两处实际也经过了转义处理，变成了&lt;script&gt;alert(&quot;wrong&quot;)&lt;/script&gt;显示。如果这里没有经过转义处理，则页面中就嵌入了一段script，会执行，并弹出对话框提示用户。如果是其他恶意代码，则可能造成破坏。转义如下图：<br><img src="http://www.taneroom.cn/images/2016/11/25/xss1.png" alt="百度针对XSS的转义" title="百度针对XSS的转义"><br>然后如果攻击者将此URL广为传播——比如说，以报错的方式发给百度的管理员，管理员打开这个URL就中招了。</p>
 <h3 id="2）发布内容式"><a href="#2）发布内容式" class="headerlink" title="2）发布内容式"></a>2）发布内容式</h3><p>构造URL攻击方式传播范围有限，被攻击者只要有基本的安全意识就可以避免，因此这种手段的危险性比较小。相比之下，通过发表内容构造的XSS的危害就大了很多。<br>在任何可以发表内容的论坛、讨论区、贴吧、博客、微博等网站上，用户发表的内容会保存起来，允许其他用户浏览。这些保存的内容显示在页面上的时候，如果没有经过正确的处理，也会把攻击者精心构造的内容显示出来，访问该内容的用户就此中招。如果该页面流传广泛，则影响会更加深远。<br>一般来说，这种攻击都做得比较隐蔽，被攻击者并不知道自己什么时候踩中了地雷，网站也很难追查问题的来源。</p>
 <h3 id="3）蠕虫式"><a href="#3）蠕虫式" class="headerlink" title="3）蠕虫式"></a>3）蠕虫式</h3><p>上述两种方式的流传范围都有一定限度；最彻底最暴力的方式是使用蠕虫–就是首先发一个有问题的文章，浏览者阅读时会被暗中执行恶意代码，发表一篇新的文章的，该文章也含有同样的恶意代码。这样有可能在最快时间内将攻击铺满整个网站。<br>下面是6月28日新浪微博被蠕虫攻击的报告，其实质就是XSS攻击。<br><a href="http://www.ijinshan.com/news/20110629001.shtml" target="_blank" rel="external">http://www.ijinshan.com/news/20110629001.shtml</a></p>
-<h2 id="XSS攻击的防范方式："><a href="#XSS攻击的防范方式：" class="headerlink" title="XSS攻击的防范方式："></a>XSS攻击的防范方式：</h2><p>防范XSS攻击的方式也十分简单：转义！但是你会面临两种抉择，是在入库前转义呢，还是在读取前转义呢？<br>这两种方式各有优劣，对于新手来说，一般会选择入库前转义，因为这种方法看起来可以一劳永逸，而且操作非常简单，只需要写一个filter或者interceptor拦截所有的写入请求，统一转义后交给controller处理入库即可。但是如果你的终端是多样化的，需要有多种展现形式的时候，这种方式就显得力不从心了。比如说你的终端要求以XML的形式显示数据，那么你就先得unescape回原始数据然后再按照xml的格式escape一次。假如终端要求更复杂的方式，转换起来就更复杂了。所以老手们慢慢会选择使用第二种方式。<br>我来总结一下一下这两种方式的优缺点：<br>| 转义方式   | 优点                                 | 缺点                                                               |<br>| ———- | ———————————— | —————————————————————— |<br>| 入库前转义 | 一劳永逸                             | 需要针对多端进行不同的输出，灵活性不足，无法应对后期数据格式的变化 |<br>| 读取前转义 | 简单，灵活，能应对各种数据格式的场景 | 需要对每个输出数据转义，人工处理容易遗漏                           |<br>本人推荐第二种方式来防范xss攻击。虽然需要对每个输出数据都进行转义，但是如果你使用带自动转义的模版或者框架来处理的话，那么就可以极大的提高效率，又可以规避安全的问题。<br>下面介绍两种基础转义的方法：<br>1）使用Apache的commons-lang.jar<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">StringEscapeUtils.escapeHtml(str);// 汉字会转换成对应的ASCII码，空格不转换</div></pre></td></tr></table></figure></p>
+<h2 id="XSS攻击的防范方式："><a href="#XSS攻击的防范方式：" class="headerlink" title="XSS攻击的防范方式："></a>XSS攻击的防范方式：</h2><p>防范XSS攻击的方式也十分简单：转义！但是你会面临两种抉择，是在入库前转义呢，还是在读取前转义呢？<br>这两种方式各有优劣，对于新手来说，一般会选择入库前转义，因为这种方法看起来可以一劳永逸，而且操作非常简单，只需要写一个filter或者interceptor拦截所有的写入请求，统一转义后交给controller处理入库即可。但是如果你的终端是多样化的，需要有多种展现形式的时候，这种方式就显得力不从心了。比如说你的终端要求以XML的形式显示数据，那么你就先得unescape回原始数据然后再按照xml的格式escape一次。假如终端要求更复杂的方式，转换起来就更复杂了。所以老手们慢慢会选择使用第二种方式。<br>我来总结一下一下这两种方式的优缺点：</p>
+<table>
+<thead>
+<tr>
+<th>转义方式</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>入库前转义</td>
+<td>一劳永逸</td>
+<td>需要针对多端进行不同的输出，灵活性不足，无法应对后期数据格式的变化</td>
+</tr>
+<tr>
+<td>读取前转义</td>
+<td>简单，灵活，能应对各种数据格式的场景</td>
+<td>需要对每个输出数据转义，人工处理容易遗漏</td>
+</tr>
+</tbody>
+</table>
+<p>本人推荐第二种方式来防范xss攻击。虽然需要对每个输出数据都进行转义，但是如果你使用带自动转义的模版或者框架来处理的话，那么就可以极大的提高效率，又可以规避安全的问题。<br>下面介绍两种基础转义的方法：<br>1）使用Apache的commons-lang.jar<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">StringEscapeUtils.escapeHtml(str);// 汉字会转换成对应的ASCII码，空格不转换</div></pre></td></tr></table></figure></p>
 <p>2）自己实现转换，只转换部分字符<br><figure class="highlight d"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> String htmlEncode(charc) &#123;</div><div class="line">    <span class="keyword">switch</span>(c) &#123;</div><div class="line">        <span class="keyword">case</span><span class="string">'&amp;'</span>:</div><div class="line">            <span class="keyword">return</span><span class="string">"&amp;"</span>;</div><div class="line">        <span class="keyword">case</span><span class="string">'&lt;'</span>:</div><div class="line">            <span class="keyword">return</span><span class="string">"&lt;"</span>;</div><div class="line">        <span class="keyword">case</span><span class="string">'&gt;'</span>:</div><div class="line">            <span class="keyword">return</span><span class="string">"&gt;"</span>;</div><div class="line">        <span class="keyword">case</span><span class="string">'"'</span>:</div><div class="line">            <span class="keyword">return</span><span class="string">""</span><span class="string">";</span></div><div class="line">        case' ':</div><div class="line">            return" <span class="string">";</span></div><div class="line">        default:</div><div class="line">            returnc +"<span class="string">";</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 对传入的字符串str进行Html encode转换</div><div class="line"> */</div><div class="line">public static String htmlEncode(String str) &#123;</div><div class="line">    if(str ==null|| str.trim().equals("<span class="string">"))returnstr;</span></div><div class="line">    StringBuilder encodeStrBuilder =newStringBuilder();</div><div class="line">    for(inti =0, len = str.length(); i &lt; len; i++) &#123;</div><div class="line">        encodeStrBuilder.append(htmlEncode(str.charAt(i)));</div><div class="line">    &#125;</div><div class="line">    returnencodeStrBuilder.toString();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h2 id="另外介绍一种最常见的XSS攻击及其防范方法"><a href="#另外介绍一种最常见的XSS攻击及其防范方法" class="headerlink" title="另外介绍一种最常见的XSS攻击及其防范方法"></a>另外介绍一种最常见的XSS攻击及其防范方法</h2><p>最常见的XSS攻击就是通过读取浏览器的Cookie对象，从而发起“cookie劫持”，当前用户的登录凭证存储于服务器的session中，而在浏览器中是以cookie的形式进行存储的，cookie被劫持后，意味着攻击者可以不通过密码而直接登录系统。我们也可以直接在浏览器中输入脚本javaScript:alert(document.cookie)来获取当前cookie值。<br>目前防止“cookie劫持”的方法大致有：<br>    a. 输入检查，使用filter来过滤敏感的关键字；<br>    b. 将cookie与用户ip地址进行绑定；<br>    c. 为cookie植入HttpOnly标识。<br>本方法主要介绍第3种方式：为cookie植入HttpOnly标识。一旦这个HttpOnly被设置，你在浏览器的document对象中就看不到Cookie了，而浏览器在浏览的时候不受任何影响，因为Cookie会被放在浏览器头中发送出去(包括ajax的时候)，应用程序也一般不会在js里操作这些敏感Cookie的，对于一些敏感的Cookie我们采用HttpOnly，对于一些需要在应用程序中用js操作的cookie我们就不予设置，这样就保障了Cookie信息的安全也保证了应用。<br>具体代码实现：在web服务器tomcat的配置文件server.xml中添加：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Context <span class="attr">docBase="E:\tomcat\apache-tomcat-6.0.24/webapps/netcredit"</span> <span class="attr">path="/netcredit"</span> <span class="attr">reloadable="false"</span> <span class="attr">useHttpOnly="true"/&gt;</span></div></pre></td></tr></table></figure></p>
 <p>或者在项目的web.xml 配置如下：<br><figure class="highlight vbscript-html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;session-config&gt;</div><div class="line">&lt;cookie-config&gt;</div><div class="line">&lt;http-only&gt;true&lt;/http-only&gt;</div><div class="line">&lt;/cookie-config&gt;</div><div class="line">&lt;/session-config&gt;</div></pre></td></tr></table></figure></p>
@@ -966,7 +1156,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -983,7 +1173,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
