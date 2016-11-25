@@ -95,7 +95,7 @@ XSS攻击的生效方式（按危害大小排序）：1）构造URLXSS攻击者�
 <meta property="og:image" content="http://www.taneroom.cn/images/2016/11/25/xss.png">
 <meta property="og:image" content="http://www.taneroom.cn/images/2016/11/25/xss1.png">
 <meta property="og:image" content="http://www.taneroom.cn/images/2016/11/25/20161101094550530.png">
-<meta property="og:updated_time" content="2016-11-25T07:20:26.466Z">
+<meta property="og:updated_time" content="2016-11-25T07:31:39.562Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web安全（1）-- XSS（跨站脚本攻击）">
 <meta name="twitter:description" content="XSS攻击，通常指黑客通过“html注入”篡改了网页，插入了恶意的脚本，从而在用户浏览网页的时候，控制用户浏览器的一种攻击。其原理是攻击者向有XSS漏洞的网站中输入(传入)一段恶意的HTML代码，当其它用户浏览该网站时，这段HTML代码会自动执行，从而达到攻击的目的。如，盗取用户Cookie、破坏页面结构、重定向到其它网站等。
@@ -197,22 +197,22 @@ XSS攻击的生效方式（按危害大小排序）：1）构造URLXSS攻击者�
         </li>
       
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -376,7 +376,7 @@ XSS攻击的生效方式（按危害大小排序）：1）构造URLXSS攻击者�
 <h2 id="XSS攻击的生效方式（按危害大小排序）："><a href="#XSS攻击的生效方式（按危害大小排序）：" class="headerlink" title="XSS攻击的生效方式（按危害大小排序）："></a>XSS攻击的生效方式（按危害大小排序）：</h2><h3 id="1）构造URL"><a href="#1）构造URL" class="headerlink" title="1）构造URL"></a>1）构造URL</h3><p>XSS攻击者通过构造URL的方式构造了一个有问题的页面；当其他人点击了此页面后，会发现页面出错，或者被暗中执行了某些js脚本，这时，攻击行为才真正生效。<br>一般来说，动态页面中会将url中的部分内容回写在页面中。以百度的搜索为例：<br><img src="http://www.taneroom.cn/images/2016/11/25/xss.png" alt="XSS注入" title="XSS注入"><br>搜索结果页中，会在标题中和搜索框中回写用户输入的内容。从页面的源代码中，我们看到，这两处实际也经过了转义处理，变成了&lt;script&gt;alert(&quot;wrong&quot;)&lt;/script&gt;显示。如果这里没有经过转义处理，则页面中就嵌入了一段script，会执行，并弹出对话框提示用户。如果是其他恶意代码，则可能造成破坏。转义如下图：<br><img src="http://www.taneroom.cn/images/2016/11/25/xss1.png" alt="百度针对XSS的转义" title="百度针对XSS的转义"><br>然后如果攻击者将此URL广为传播——比如说，以报错的方式发给百度的管理员，管理员打开这个URL就中招了。</p>
 <h3 id="2）发布内容式"><a href="#2）发布内容式" class="headerlink" title="2）发布内容式"></a>2）发布内容式</h3><p>构造URL攻击方式传播范围有限，被攻击者只要有基本的安全意识就可以避免，因此这种手段的危险性比较小。相比之下，通过发表内容构造的XSS的危害就大了很多。<br>在任何可以发表内容的论坛、讨论区、贴吧、博客、微博等网站上，用户发表的内容会保存起来，允许其他用户浏览。这些保存的内容显示在页面上的时候，如果没有经过正确的处理，也会把攻击者精心构造的内容显示出来，访问该内容的用户就此中招。如果该页面流传广泛，则影响会更加深远。<br>一般来说，这种攻击都做得比较隐蔽，被攻击者并不知道自己什么时候踩中了地雷，网站也很难追查问题的来源。</p>
 <h3 id="3）蠕虫式"><a href="#3）蠕虫式" class="headerlink" title="3）蠕虫式"></a>3）蠕虫式</h3><p>上述两种方式的流传范围都有一定限度；最彻底最暴力的方式是使用蠕虫–就是首先发一个有问题的文章，浏览者阅读时会被暗中执行恶意代码，发表一篇新的文章的，该文章也含有同样的恶意代码。这样有可能在最快时间内将攻击铺满整个网站。<br>下面是6月28日新浪微博被蠕虫攻击的报告，其实质就是XSS攻击。<br><a href="http://www.ijinshan.com/news/20110629001.shtml" target="_blank" rel="external">http://www.ijinshan.com/news/20110629001.shtml</a></p>
-<h2 id="XSS攻击的防范方式："><a href="#XSS攻击的防范方式：" class="headerlink" title="XSS攻击的防范方式："></a>XSS攻击的防范方式：</h2><p>防范XSS攻击的方式也十分简单：转义！但是你会面临两种抉择，是在入库前转义呢，还是在读取前转义呢？<br>这两种方式各有优劣，对于新手来说，一般会选择入库前转义，因为这种方法看起来可以一劳永逸，而且操作非常简单，只需要写一个filter或者interceptor拦截所有的写入请求，统一转义后交给controller处理入库即可。但是如果你的终端是多样化的，需要有多种展现形式的时候，这种方式就显得力不从心了。比如说你的终端要求以XML的形式显示数据，那么你就先得unescape回原始数据然后再按照xml的格式escape一次。假如终端要求更复杂的方式，转换起来就更复杂了。所以老手们慢慢会选择使用第二种方式。<br>我来总结一下一下这两种方式的优缺点：<br>| 转义方式   | 优点                                 | 缺点                                                               |<br>| ———- | ———————————— | —————————————————————— |<br>| 入库前转义 | 一劳永逸                             | 需要针对多端进行不同的输出，灵活性不足，无法应对后期数据格式的变化 |<br>| 读取前转义 | 简单，灵活，能应对各种数据格式的场景 | 需要对每个输出数据转义，人工处理容易遗漏  |<br>本人推荐第二种方式来防范xss攻击。虽然需要对每个输出数据都进行转义，但是如果你使用带自动转义的模版或者框架来处理的话，那么就可以极大的提高效率，又可以规避安全的问题。<br>下面介绍两种基础转义的方法：<br>1）使用Apache的commons-lang.jar<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">StringEscapeUtils.escapeHtml(str);// 汉字会转换成对应的ASCII码，空格不转换</div></pre></td></tr></table></figure></p>
+<h2 id="XSS攻击的防范方式："><a href="#XSS攻击的防范方式：" class="headerlink" title="XSS攻击的防范方式："></a>XSS攻击的防范方式：</h2><p>防范XSS攻击的方式也十分简单：转义！但是你会面临两种抉择，是在入库前转义呢，还是在读取前转义呢？<br>这两种方式各有优劣，对于新手来说，一般会选择入库前转义，因为这种方法看起来可以一劳永逸，而且操作非常简单，只需要写一个filter或者interceptor拦截所有的写入请求，统一转义后交给controller处理入库即可。但是如果你的终端是多样化的，需要有多种展现形式的时候，这种方式就显得力不从心了。比如说你的终端要求以XML的形式显示数据，那么你就先得unescape回原始数据然后再按照xml的格式escape一次。假如终端要求更复杂的方式，转换起来就更复杂了。所以老手们慢慢会选择使用第二种方式。<br>我来总结一下一下这两种方式的优缺点：<br>| 转义方式   | 优点                                 | 缺点                                                               |<br>| ———- | ———————————— | —————————————————————— |<br>| 入库前转义 | 一劳永逸                             | 需要针对多端进行不同的输出，灵活性不足，无法应对后期数据格式的变化 |<br>| 读取前转义 | 简单，灵活，能应对各种数据格式的场景 | 需要对每个输出数据转义，人工处理容易遗漏                           |<br>本人推荐第二种方式来防范xss攻击。虽然需要对每个输出数据都进行转义，但是如果你使用带自动转义的模版或者框架来处理的话，那么就可以极大的提高效率，又可以规避安全的问题。<br>下面介绍两种基础转义的方法：<br>1）使用Apache的commons-lang.jar<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">StringEscapeUtils.escapeHtml(str);// 汉字会转换成对应的ASCII码，空格不转换</div></pre></td></tr></table></figure></p>
 <p>2）自己实现转换，只转换部分字符<br><figure class="highlight d"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> String htmlEncode(charc) &#123;</div><div class="line">    <span class="keyword">switch</span>(c) &#123;</div><div class="line">        <span class="keyword">case</span><span class="string">'&amp;'</span>:</div><div class="line">            <span class="keyword">return</span><span class="string">"&amp;"</span>;</div><div class="line">        <span class="keyword">case</span><span class="string">'&lt;'</span>:</div><div class="line">            <span class="keyword">return</span><span class="string">"&lt;"</span>;</div><div class="line">        <span class="keyword">case</span><span class="string">'&gt;'</span>:</div><div class="line">            <span class="keyword">return</span><span class="string">"&gt;"</span>;</div><div class="line">        <span class="keyword">case</span><span class="string">'"'</span>:</div><div class="line">            <span class="keyword">return</span><span class="string">""</span><span class="string">";</span></div><div class="line">        case' ':</div><div class="line">            return" <span class="string">";</span></div><div class="line">        default:</div><div class="line">            returnc +"<span class="string">";</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 对传入的字符串str进行Html encode转换</div><div class="line"> */</div><div class="line">public static String htmlEncode(String str) &#123;</div><div class="line">    if(str ==null|| str.trim().equals("<span class="string">"))returnstr;</span></div><div class="line">    StringBuilder encodeStrBuilder =newStringBuilder();</div><div class="line">    for(inti =0, len = str.length(); i &lt; len; i++) &#123;</div><div class="line">        encodeStrBuilder.append(htmlEncode(str.charAt(i)));</div><div class="line">    &#125;</div><div class="line">    returnencodeStrBuilder.toString();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h2 id="另外介绍一种最常见的XSS攻击及其防范方法"><a href="#另外介绍一种最常见的XSS攻击及其防范方法" class="headerlink" title="另外介绍一种最常见的XSS攻击及其防范方法"></a>另外介绍一种最常见的XSS攻击及其防范方法</h2><p>最常见的XSS攻击就是通过读取浏览器的Cookie对象，从而发起“cookie劫持”，当前用户的登录凭证存储于服务器的session中，而在浏览器中是以cookie的形式进行存储的，cookie被劫持后，意味着攻击者可以不通过密码而直接登录系统。我们也可以直接在浏览器中输入脚本javaScript:alert(document.cookie)来获取当前cookie值。<br>目前防止“cookie劫持”的方法大致有：<br>    a. 输入检查，使用filter来过滤敏感的关键字；<br>    b. 将cookie与用户ip地址进行绑定；<br>    c. 为cookie植入HttpOnly标识。<br>本方法主要介绍第3种方式：为cookie植入HttpOnly标识。一旦这个HttpOnly被设置，你在浏览器的document对象中就看不到Cookie了，而浏览器在浏览的时候不受任何影响，因为Cookie会被放在浏览器头中发送出去(包括ajax的时候)，应用程序也一般不会在js里操作这些敏感Cookie的，对于一些敏感的Cookie我们采用HttpOnly，对于一些需要在应用程序中用js操作的cookie我们就不予设置，这样就保障了Cookie信息的安全也保证了应用。<br>具体代码实现：在web服务器tomcat的配置文件server.xml中添加：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Context <span class="attr">docBase="E:\tomcat\apache-tomcat-6.0.24/webapps/netcredit"</span> <span class="attr">path="/netcredit"</span> <span class="attr">reloadable="false"</span> <span class="attr">useHttpOnly="true"/&gt;</span></div></pre></td></tr></table></figure></p>
 <p>或者在项目的web.xml 配置如下：<br><figure class="highlight vbscript-html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;session-config&gt;</div><div class="line">&lt;cookie-config&gt;</div><div class="line">&lt;http-only&gt;true&lt;/http-only&gt;</div><div class="line">&lt;/cookie-config&gt;</div><div class="line">&lt;/session-config&gt;</div></pre></td></tr></table></figure></p>
@@ -526,7 +526,7 @@ XSS攻击的生效方式（按危害大小排序）：1）构造URLXSS攻击者�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -543,7 +543,7 @@ XSS攻击的生效方式（按危害大小排序）：1）构造URLXSS攻击者�
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
