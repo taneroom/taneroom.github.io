@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="TaneRoom, 谭振" />
+  <meta name="keywords" content="web安全,文件下载漏洞," />
 
 
 
@@ -84,19 +84,22 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="1.1 漏洞描述 一些网站由于业务需求，可能提供文件查看或下载的功能，如果对用户查看或下载的文件不做限制，则恶意用户就能够查看或下载任意的文件，可以是源代码文件、敏感文件等。
+1.2 漏洞危害下载服务器任意文件，如脚本代码，服务及系统配置文件等；可用得到的代码进一步代码审计，得到更多可利用漏洞
+1.3 漏洞演示该部分主要讲述两种简单的利用方法，下载tomcat的配置文件和下载网站本身的源代码。1)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://www.taneroom.cn/2016/11/24/hello-world/index.html">
+<meta property="og:title" content="web安全（7）-- 任意文件下载漏洞">
+<meta property="og:url" content="http://www.taneroom.cn/2016/11/25/web安全（7）-任意文件下载漏洞/index.html">
 <meta property="og:site_name" content="TaneRoom">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-11-24T01:57:13.460Z">
+<meta property="og:description" content="1.1 漏洞描述 一些网站由于业务需求，可能提供文件查看或下载的功能，如果对用户查看或下载的文件不做限制，则恶意用户就能够查看或下载任意的文件，可以是源代码文件、敏感文件等。
+1.2 漏洞危害下载服务器任意文件，如脚本代码，服务及系统配置文件等；可用得到的代码进一步代码审计，得到更多可利用漏洞
+1.3 漏洞演示该部分主要讲述两种简单的利用方法，下载tomcat的配置文件和下载网站本身的源代码。1)">
+<meta property="og:updated_time" content="2016-11-25T09:15:31.981Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="web安全（7）-- 任意文件下载漏洞">
+<meta name="twitter:description" content="1.1 漏洞描述 一些网站由于业务需求，可能提供文件查看或下载的功能，如果对用户查看或下载的文件不做限制，则恶意用户就能够查看或下载任意的文件，可以是源代码文件、敏感文件等。
+1.2 漏洞危害下载服务器任意文件，如脚本代码，服务及系统配置文件等；可用得到的代码进一步代码审计，得到更多可利用漏洞
+1.3 漏洞演示该部分主要讲述两种简单的利用方法，下载tomcat的配置文件和下载网站本身的源代码。1)">
 
 
 
@@ -124,13 +127,13 @@ Quick">
 
 
 
-  <link rel="canonical" href="http://www.taneroom.cn/2016/11/24/hello-world/"/>
+  <link rel="canonical" href="http://www.taneroom.cn/2016/11/25/web安全（7）-任意文件下载漏洞/"/>
 
 
 
 
 
-  <title> Hello World | TaneRoom </title>
+  <title> web安全（7）-- 任意文件下载漏洞 | TaneRoom </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -261,7 +264,7 @@ Quick">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://www.taneroom.cn/2016/11/24/hello-world/">
+  <link itemprop="mainEntityOfPage" href="http://www.taneroom.cn/2016/11/25/web安全（7）-任意文件下载漏洞/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="TaneRoom">
@@ -285,7 +288,7 @@ Quick">
             
             
               
-                Hello World
+                web安全（7）-- 任意文件下载漏洞
               
             
           </h1>
@@ -298,8 +301,8 @@ Quick">
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-24T09:57:13+08:00">
-                2016-11-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-25T17:09:09+08:00">
+                2016-11-25
               </time>
             
 
@@ -309,13 +312,31 @@ Quick">
           </span>
 
           
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
-                <a href="/2016/11/24/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/24/hello-world/" itemprop="commentCount"></span>
+                <a href="/2016/11/25/web安全（7）-任意文件下载漏洞/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/25/web安全（7）-任意文件下载漏洞/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -325,7 +346,7 @@ Quick">
 
           
           
-             <span id="/2016/11/24/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
+             <span id="/2016/11/25/web安全（7）-任意文件下载漏洞/" class="leancloud_visitors" data-flag-title="web安全（7）-- 任意文件下载漏洞">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -350,15 +371,13 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h2 id="1-1-漏洞描述"><a href="#1-1-漏洞描述" class="headerlink" title="1.1 漏洞描述"></a>1.1 漏洞描述</h2><p> 一些网站由于业务需求，可能提供文件查看或下载的功能，如果对用户查看或下载的文件不做限制，则恶意用户就能够查看或下载任意的文件，可以是源代码文件、敏感文件等。</p>
+<h2 id="1-2-漏洞危害"><a href="#1-2-漏洞危害" class="headerlink" title="1.2 漏洞危害"></a>1.2 漏洞危害</h2><p>下载服务器任意文件，如脚本代码，服务及系统配置文件等；可用得到的代码进一步代码审计，得到更多可利用漏洞</p>
+<h2 id="1-3-漏洞演示"><a href="#1-3-漏洞演示" class="headerlink" title="1.3 漏洞演示"></a>1.3 漏洞演示</h2><p>该部分主要讲述两种简单的利用方法，下载tomcat的配置文件和下载网站本身的源代码。<br>1)Jsp站点的一个下载点:<br><a href="http://www.test.cn/down.jsp?filename=%D5%D0%B1%EA%CF%EE%C4%BF%C9%EA%C7%EB1.doc&amp;path=C:/Program%20Files/Apache%20Software%20Foundation/Tomcat%206.0/webapps/ZTBWZ/upload/%D5%D0%B1%EA%CF%EE%C4%BF%C9%EA%C7%EB1.doc" target="_blank" rel="external">http://www.test.cn/down.jsp?filename=%D5%D0%B1%EA%CF%EE%C4%BF%C9%EA%C7%EB1.doc&amp;path=C:/Program%20Files/Apache%20Software%20Foundation/Tomcat%206.0/webapps/ZTBWZ/upload/%D5%D0%B1%EA%CF%EE%C4%BF%C9%EA%C7%EB1.doc</a><br>可以看到该下载点，有两个参数，其实是一样的，很容易看出path是待下载文件的在服务器上的绝对路径。而且网站放到tomcat的安装路径下，这一点很重要，说明可以直接访问tomcat的manager/html<br>请求: <a href="http://www.test.cn/manager/html" target="_blank" rel="external">http://www.test.cn/manager/html</a><br>可以看到访问正常，输入用户名和密码就可以登录。<br>因此下一步就是下载tomcat的配置文件tomcat-users.xml（里面保存登录的用户名和密码）<br>首先需要对tomcat配置有些了解，具体配置如下:<br>tomcat-users.xml 在conf文件下，这样就可以直接使用下载点下载该文件。<br>因此构造url如下:<br><a href="http://www.test.cn/down.jsp?filename=tomcat-users.xml&amp;path=C:/Program%20Files/Apache%20Software%20Foundation/Tomcat%206.0/conf/tomcat-users.xml" target="_blank" rel="external">http://www.test.cn/down.jsp?filename=tomcat-users.xml&amp;path=C:/Program%20Files/Apache%20Software%20Foundation/Tomcat%206.0/conf/tomcat-users.xml</a><br>下载成功:<br>打开该文件获得用户名和密码<br>登录成功<br>下面直接，上传一个war文件，就可以获得webshell,完成了一次简单的测试。<br>2)下载网站本身源代码<br>下载点: <a href="http://test.edu.cn/file.do?method=downFile&amp;fileName=20080505094144.doc" target="_blank" rel="external">http://test.edu.cn/file.do?method=downFile&amp;fileName=20080505094144.doc</a><br>测试一下不能访问<a href="http://test.edu.cn/manager/html" target="_blank" rel="external">http://test.edu.cn/manager/html</a><br>上述方法失效。<br>首先下载网站的配置文件jsp的配置文件放在根目录WEB-INF/Web.xml下(一般都有很多内容,有时含有数据库连接用户名和密码等关键信息)<br>访问:<br><a href="http://test/file.do?method=downFile&amp;fileName=../WEB-INF/Web.xml" target="_blank" rel="external">http://test/file.do?method=downFile&amp;fileName=../WEB-INF/Web.xml</a><br>下载后打开,关键内容:<br>后台使用fckeditor编辑器，该编辑器漏洞很多，直接使用该编辑器直接上传路径<br><a href="http://test//admin/FCKeditor/editor/filemanager/browser/default/browser.html?Type=image&amp;Connector=connectors/jsp/connector" target="_blank" rel="external">http://test//admin/FCKeditor/editor/filemanager/browser/default/browser.html?Type=image&amp;Connector=connectors/jsp/connector</a><br>选择一个jspshell直接上传，获得webshell，没有任何限制<br>系统权限，渗透完成。</p>
+<h2 id="1-4-修复方案"><a href="#1-4-修复方案" class="headerlink" title="1.4 修复方案"></a>1.4 修复方案</h2><blockquote>
+<p>1)过滤点(.)使用户在url中不能回溯上级目录<br>2)正则严格判断用户输入参数的格式<br>3)将下载区独立出来，放在项目路径外，给每个下载资源固定的URL，而不是所有的下载资源都是统一的URL：<a href="http://www.test.com/download?filename=文件名" target="_blank" rel="external">http://www.test.com/download?filename=文件名</a></p>
+</blockquote>
+<h2 id="1-5-相关参考"><a href="#1-5-相关参考" class="headerlink" title="1.5 相关参考"></a>1.5 相关参考</h2><p><a href="http://www.cnblogs.com/Time-Cat00/p/5810770.html" target="_blank" rel="external">http://www.cnblogs.com/Time-Cat00/p/5810770.html</a><br><a href="http://h.evil.blog.163.com/blog/static/997935042012223112435259/" target="_blank" rel="external">http://h.evil.blog.163.com/blog/static/997935042012223112435259/</a></p>
 
       
     </div>
@@ -385,10 +404,22 @@ Quick">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/web安全/" rel="tag"># web安全</a>
+          
+            <a href="/tags/文件下载漏洞/" rel="tag"># 文件下载漏洞</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/25/web安全（6）-任意文件上传漏洞/" rel="next" title="web安全（6）-- 任意文件上传漏洞">
+                <i class="fa fa-chevron-left"></i> web安全（6）-- 任意文件上传漏洞
+              </a>
             
           </div>
 
@@ -396,8 +427,8 @@ Quick">
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/11/25/web安全（1）-XSS（跨站脚本攻击）/" rel="prev" title="web安全（1）-- XSS（跨站脚本攻击）">
-                web安全（1）-- XSS（跨站脚本攻击） <i class="fa fa-chevron-right"></i>
+              <a href="/2016/11/25/web安全（8）-程序缺陷/" rel="prev" title="web安全（8）-- 程序缺陷">
+                web安全（8）-- 程序缺陷 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -413,10 +444,10 @@ Quick">
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/11/24/hello-world/"
-     data-title="Hello World"
+        <div class="ds-share flat" data-thread-key="2016/11/25/web安全（7）-任意文件下载漏洞/"
+     data-title="web安全（7）-- 任意文件下载漏洞"
      data-content=""
-     data-url="http://www.taneroom.cn/2016/11/24/hello-world/">
+     data-url="http://www.taneroom.cn/2016/11/25/web安全（7）-任意文件下载漏洞/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -443,8 +474,8 @@ Quick">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/11/24/hello-world/"
-           data-title="Hello World" data-url="http://www.taneroom.cn/2016/11/24/hello-world/">
+      <div class="ds-thread" data-thread-key="2016/11/25/web安全（7）-任意文件下载漏洞/"
+           data-title="web安全（7）-- 任意文件下载漏洞" data-url="http://www.taneroom.cn/2016/11/25/web安全（7）-任意文件下载漏洞/">
       </div>
     
   </div>
@@ -561,7 +592,7 @@ Quick">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-漏洞描述"><span class="nav-number">1.</span> <span class="nav-text">1.1 漏洞描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-漏洞危害"><span class="nav-number">2.</span> <span class="nav-text">1.2 漏洞危害</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-漏洞演示"><span class="nav-number">3.</span> <span class="nav-text">1.3 漏洞演示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-修复方案"><span class="nav-number">4.</span> <span class="nav-text">1.4 修复方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-相关参考"><span class="nav-number">5.</span> <span class="nav-text">1.5 相关参考</span></a></li></ol></div>
             
 
           </div>

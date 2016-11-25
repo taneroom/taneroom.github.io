@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="TaneRoom, 谭振" />
+  <meta name="keywords" content="web安全,文件上传漏洞," />
 
 
 
@@ -84,19 +84,31 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="1.1 漏洞描述上传漏洞这个顾名思义，就是攻击者通过上传木马文件，直接得到WEBSHELL，危害等级超级高，现在的入侵中上传漏洞也是常见的漏洞。导致该漏洞的原因在于代码作者没有对访客提交的数据进行检验或者过滤不严，可以直接提交修改过的数据绕过扩展名的检验。
+1.2 漏洞危害
+1)可以得到WEBSHELL2)上传木马文件，可以导致系统瘫痪
+
+1.3 漏洞演示我们来看看下面这段文件上传代码,使用的是c">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://www.taneroom.cn/2016/11/24/hello-world/index.html">
+<meta property="og:title" content="web安全（6）-- 任意文件上传漏洞">
+<meta property="og:url" content="http://www.taneroom.cn/2016/11/25/web安全（6）-任意文件上传漏洞/index.html">
 <meta property="og:site_name" content="TaneRoom">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-11-24T01:57:13.460Z">
+<meta property="og:description" content="1.1 漏洞描述上传漏洞这个顾名思义，就是攻击者通过上传木马文件，直接得到WEBSHELL，危害等级超级高，现在的入侵中上传漏洞也是常见的漏洞。导致该漏洞的原因在于代码作者没有对访客提交的数据进行检验或者过滤不严，可以直接提交修改过的数据绕过扩展名的检验。
+1.2 漏洞危害
+1)可以得到WEBSHELL2)上传木马文件，可以导致系统瘫痪
+
+1.3 漏洞演示我们来看看下面这段文件上传代码,使用的是c">
+<meta property="og:image" content="http://www.taneroom.cn/images/2016/11/25/20161121162117216.png">
+<meta property="og:image" content="http://www.taneroom.cn/images/2016/11/25/20161121162136323.png">
+<meta property="og:updated_time" content="2016-11-25T09:08:10.877Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="web安全（6）-- 任意文件上传漏洞">
+<meta name="twitter:description" content="1.1 漏洞描述上传漏洞这个顾名思义，就是攻击者通过上传木马文件，直接得到WEBSHELL，危害等级超级高，现在的入侵中上传漏洞也是常见的漏洞。导致该漏洞的原因在于代码作者没有对访客提交的数据进行检验或者过滤不严，可以直接提交修改过的数据绕过扩展名的检验。
+1.2 漏洞危害
+1)可以得到WEBSHELL2)上传木马文件，可以导致系统瘫痪
+
+1.3 漏洞演示我们来看看下面这段文件上传代码,使用的是c">
+<meta name="twitter:image" content="http://www.taneroom.cn/images/2016/11/25/20161121162117216.png">
 
 
 
@@ -124,13 +136,13 @@ Quick">
 
 
 
-  <link rel="canonical" href="http://www.taneroom.cn/2016/11/24/hello-world/"/>
+  <link rel="canonical" href="http://www.taneroom.cn/2016/11/25/web安全（6）-任意文件上传漏洞/"/>
 
 
 
 
 
-  <title> Hello World | TaneRoom </title>
+  <title> web安全（6）-- 任意文件上传漏洞 | TaneRoom </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -261,7 +273,7 @@ Quick">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://www.taneroom.cn/2016/11/24/hello-world/">
+  <link itemprop="mainEntityOfPage" href="http://www.taneroom.cn/2016/11/25/web安全（6）-任意文件上传漏洞/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="TaneRoom">
@@ -285,7 +297,7 @@ Quick">
             
             
               
-                Hello World
+                web安全（6）-- 任意文件上传漏洞
               
             
           </h1>
@@ -298,8 +310,8 @@ Quick">
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-24T09:57:13+08:00">
-                2016-11-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-25T17:01:38+08:00">
+                2016-11-25
               </time>
             
 
@@ -309,13 +321,31 @@ Quick">
           </span>
 
           
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
-                <a href="/2016/11/24/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/24/hello-world/" itemprop="commentCount"></span>
+                <a href="/2016/11/25/web安全（6）-任意文件上传漏洞/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/25/web安全（6）-任意文件上传漏洞/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -325,7 +355,7 @@ Quick">
 
           
           
-             <span id="/2016/11/24/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
+             <span id="/2016/11/25/web安全（6）-任意文件上传漏洞/" class="leancloud_visitors" data-flag-title="web安全（6）-- 任意文件上传漏洞">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -350,15 +380,18 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h2 id="1-1-漏洞描述"><a href="#1-1-漏洞描述" class="headerlink" title="1.1 漏洞描述"></a>1.1 漏洞描述</h2><p>上传漏洞这个顾名思义，就是攻击者通过上传木马文件，直接得到WEBSHELL，危害等级超级高，现在的入侵中上传漏洞也是常见的漏洞。<br>导致该漏洞的原因在于代码作者没有对访客提交的数据进行检验或者过滤不严，可以直接提交修改过的数据绕过扩展名的检验。</p>
+<h2 id="1-2-漏洞危害"><a href="#1-2-漏洞危害" class="headerlink" title="1.2 漏洞危害"></a>1.2 漏洞危害</h2><blockquote>
+<p>1)可以得到WEBSHELL<br>2)上传木马文件，可以导致系统瘫痪</p>
+</blockquote>
+<h2 id="1-3-漏洞演示"><a href="#1-3-漏洞演示" class="headerlink" title="1.3 漏洞演示"></a>1.3 漏洞演示</h2><p><img src="http://www.taneroom.cn/images/2016/11/25/20161121162117216.png" alt="enter description here" title="项目目录"><br>我们来看看下面这段文件上传代码,使用的是common-fileupload.jar和common-io.jar UploadServlet.Java访问路径/UploadServlet<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 文件上传</div><div class="line"> */</div><div class="line">protected void doPost(HttpServletRequest request, HttpServletResponse response) &#123;</div><div class="line">    String root = request.getServletContext().getRealPath("/upload");</div><div class="line">    DiskFileItemFactory factory = new DiskFileItemFactory();</div><div class="line">    ServletFileUpload upload = new ServletFileUpload(factory);</div><div class="line">    try &#123;</div><div class="line">        List&lt;FileItem&gt; list = upload.parseRequest(request);</div><div class="line">        for(FileItem it:list)&#123;</div><div class="line">            //如果是file文件类型</div><div class="line">            if(!it.isFormField())&#123;</div><div class="line">                it.write(new File(root+"/"+it.getName()));</div><div class="line">                response.getWriter().write("success");</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; catch (Exception e) &#123;</div><div class="line">        try &#123;</div><div class="line">            response.getWriter().write("exception");</div><div class="line">        &#125; catch (IOException e1) &#123;</div><div class="line">            e1.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>前端index.jsp有一个上传文件的表单<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;form  action=<span class="string">"/load/UploadServlet"</span> <span class="keyword">method</span>=<span class="string">"post"</span> enctype=<span class="string">"multipart/form-data"</span>&gt;</div><div class="line">    &lt;input <span class="keyword">type</span>=<span class="string">"file"</span> name=<span class="string">"file"</span>/&gt;</div><div class="line">    &lt;input <span class="keyword">type</span>=<span class="string">"submit"</span> value=<span class="string">"submit"</span>/&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>我们将项目发布到tomcat并且访问<a href="http://localhost:8080/load/" target="_blank" rel="external">http://localhost:8080/load/</a><br><img src="http://www.taneroom.cn/images/2016/11/25/20161121162136323.png" alt="enter description here" title="部署测试"><br>选择要上传的文件提交表单.文件上传也成功,在upload目录下也有我们所上传的文件. (如果是你一个刚毕业刚入行的新人,你可能看不出任何问题),可能很多老鸟大神都知道这个上传功能存在什么问题,要骂我sb! 对没错,这个功能还有一个最大的问题就是没有对上传的文件格式做限制,如果我这里实现写好了一个脚本a.jsp代码如下<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;%@page import=<span class="string">"java.io.File"</span>%&gt;</div><div class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=utf-8"</span> pageEncoding=<span class="string">"utf-8"</span>%&gt;</div><div class="line">&lt;%</div><div class="line">    String root = request.getServletContext().getRealPath(<span class="string">""</span>);</div><div class="line">    out.write(<span class="string">"系统部署绝对路径:"</span>+root);</div><div class="line">    File <span class="keyword">file</span> = new File(root+<span class="string">"/index.jsp"</span>);</div><div class="line">    <span class="keyword">file</span>.<span class="keyword">delete</span>();</div><div class="line">%&gt;</div></pre></td></tr></table></figure></p>
+<p>上传完毕,我们在访问localhost:8080/load/upload/a.jsp，然后你在返回你就会发现一件恐怖的事情,这里不限于做删除操作,还可以自定义主页,看你自己怎么写了！ 所以说我们在做上传的时候必须要对上传的文件格式做处理,在上传的时候加入一句判断语句(当然只判断后缀,还可能存在一些问题,最好在加上判断文件前4个字节一起判断（不同文件类型前4字节不同）,这样就能很好的避免上述问题！</p>
+<h2 id="1-4-修复方案"><a href="#1-4-修复方案" class="headerlink" title="1.4 修复方案"></a>1.4 修复方案</h2><blockquote>
+<p>1)对文件格式限制，只允许某些格式上传<br>2)对文件格式进行校验，前端跟服务器都要进行校验（前端校验扩展名，服务器校验扩展名、Content_Type等）<br>3)将上传目录防止到项目工程目录之外，当做静态资源文件路径，并且对文件的权限进行设定，禁止文件下的执行权限。</p>
+<h2 id="1-5-相关参考"><a href="#1-5-相关参考" class="headerlink" title="1.5 相关参考"></a>1.5 相关参考</h2><p><a href="http://blog.csdn.NET/worn_xiao/article/details/52357167" target="_blank" rel="external">http://blog.csdn.NET/worn_xiao/article/details/52357167</a><br><a href="http://www.ituring.com.cn/article/177592" target="_blank" rel="external">http://www.ituring.com.cn/article/177592</a><br><a href="http://sec.chinabyte.com/352/13843352.shtml" target="_blank" rel="external">http://sec.chinabyte.com/352/13843352.shtml</a><br><a href="http://www.2cto.com/article/201602/490414.html" target="_blank" rel="external">http://www.2cto.com/article/201602/490414.html</a></p>
+</blockquote>
 
       
     </div>
@@ -385,10 +418,22 @@ Quick">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/web安全/" rel="tag"># web安全</a>
+          
+            <a href="/tags/文件上传漏洞/" rel="tag"># 文件上传漏洞</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/25/web安全（5）-越权操作/" rel="next" title="web安全（5）-- 越权操作">
+                <i class="fa fa-chevron-left"></i> web安全（5）-- 越权操作
+              </a>
             
           </div>
 
@@ -396,8 +441,8 @@ Quick">
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/11/25/web安全（1）-XSS（跨站脚本攻击）/" rel="prev" title="web安全（1）-- XSS（跨站脚本攻击）">
-                web安全（1）-- XSS（跨站脚本攻击） <i class="fa fa-chevron-right"></i>
+              <a href="/2016/11/25/web安全（7）-任意文件下载漏洞/" rel="prev" title="web安全（7）-- 任意文件下载漏洞">
+                web安全（7）-- 任意文件下载漏洞 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -413,10 +458,10 @@ Quick">
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/11/24/hello-world/"
-     data-title="Hello World"
+        <div class="ds-share flat" data-thread-key="2016/11/25/web安全（6）-任意文件上传漏洞/"
+     data-title="web安全（6）-- 任意文件上传漏洞"
      data-content=""
-     data-url="http://www.taneroom.cn/2016/11/24/hello-world/">
+     data-url="http://www.taneroom.cn/2016/11/25/web安全（6）-任意文件上传漏洞/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -443,8 +488,8 @@ Quick">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/11/24/hello-world/"
-           data-title="Hello World" data-url="http://www.taneroom.cn/2016/11/24/hello-world/">
+      <div class="ds-thread" data-thread-key="2016/11/25/web安全（6）-任意文件上传漏洞/"
+           data-title="web安全（6）-- 任意文件上传漏洞" data-url="http://www.taneroom.cn/2016/11/25/web安全（6）-任意文件上传漏洞/">
       </div>
     
   </div>
@@ -561,7 +606,7 @@ Quick">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-漏洞描述"><span class="nav-number">1.</span> <span class="nav-text">1.1 漏洞描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-漏洞危害"><span class="nav-number">2.</span> <span class="nav-text">1.2 漏洞危害</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-漏洞演示"><span class="nav-number">3.</span> <span class="nav-text">1.3 漏洞演示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-修复方案"><span class="nav-number">4.</span> <span class="nav-text">1.4 修复方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-相关参考"><span class="nav-number">5.</span> <span class="nav-text">1.5 相关参考</span></a></li></ol></div>
             
 
           </div>

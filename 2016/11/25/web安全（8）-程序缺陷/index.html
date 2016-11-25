@@ -1,0 +1,898 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="web安全,文件下载漏洞," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="1.1 漏洞描述软件缺陷（Defect），常常又被叫做Bug。所谓软件缺陷，即为计算机软件或程序中存在的某种破坏正常运行能力的问题、错误，或者隐藏的功能缺陷。缺陷的存在会导致软件产品在某种程度上不能满足用户的需要。IEEE729-1983对缺陷有一个标准的定义：从产品内部看，缺陷是软件产品开发或维护过程中存在的错误、毛病等各种问题；从产品外部看，缺陷是系统所需要实现的某种功能的失效或违背。在软件开">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web安全（8）-- 程序缺陷">
+<meta property="og:url" content="http://www.taneroom.cn/2016/11/25/web安全（8）-程序缺陷/index.html">
+<meta property="og:site_name" content="TaneRoom">
+<meta property="og:description" content="1.1 漏洞描述软件缺陷（Defect），常常又被叫做Bug。所谓软件缺陷，即为计算机软件或程序中存在的某种破坏正常运行能力的问题、错误，或者隐藏的功能缺陷。缺陷的存在会导致软件产品在某种程度上不能满足用户的需要。IEEE729-1983对缺陷有一个标准的定义：从产品内部看，缺陷是软件产品开发或维护过程中存在的错误、毛病等各种问题；从产品外部看，缺陷是系统所需要实现的某种功能的失效或违背。在软件开">
+<meta property="og:image" content="http://www.taneroom.cn/images/2016/11/25/20161123173617520.png">
+<meta property="og:updated_time" content="2016-11-25T09:38:02.569Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="web安全（8）-- 程序缺陷">
+<meta name="twitter:description" content="1.1 漏洞描述软件缺陷（Defect），常常又被叫做Bug。所谓软件缺陷，即为计算机软件或程序中存在的某种破坏正常运行能力的问题、错误，或者隐藏的功能缺陷。缺陷的存在会导致软件产品在某种程度上不能满足用户的需要。IEEE729-1983对缺陷有一个标准的定义：从产品内部看，缺陷是软件产品开发或维护过程中存在的错误、毛病等各种问题；从产品外部看，缺陷是系统所需要实现的某种功能的失效或违背。在软件开">
+<meta name="twitter:image" content="http://www.taneroom.cn/images/2016/11/25/20161123173617520.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.taneroom.cn/2016/11/25/web安全（8）-程序缺陷/"/>
+
+
+
+
+
+  <title> web安全（8）-- 程序缺陷 | TaneRoom </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">TaneRoom</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">低调的码农</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.taneroom.cn/2016/11/25/web安全（8）-程序缺陷/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="TaneRoom">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="TaneRoom">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="TaneRoom" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                web安全（8）-- 程序缺陷
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-25T17:16:05+08:00">
+                2016-11-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2016/11/25/web安全（8）-程序缺陷/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/25/web安全（8）-程序缺陷/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/11/25/web安全（8）-程序缺陷/" class="leancloud_visitors" data-flag-title="web安全（8）-- 程序缺陷">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-1-漏洞描述"><a href="#1-1-漏洞描述" class="headerlink" title="1.1 漏洞描述"></a>1.1 漏洞描述</h2><p>软件缺陷（Defect），常常又被叫做Bug。所谓软件缺陷，即为计算机软件或程序中存在的某种破坏正常运行能力的问题、错误，或者隐藏的功能缺陷。缺陷的存在会导致软件产品在某种程度上不能满足用户的需要。IEEE729-1983对缺陷有一个标准的定义：从产品内部看，缺陷是软件产品开发或维护过程中存在的错误、毛病等各种问题；从产品外部看，缺陷是系统所需要实现的某种功能的失效或违背。在软件开发生命周期的后期，修复检测到的软件错误的成本较高。</p>
+<h2 id="1-2-漏洞危害"><a href="#1-2-漏洞危害" class="headerlink" title="1.2 漏洞危害"></a>1.2 漏洞危害</h2><p>程序缺陷的危害可大可小，大的缺陷可能导致系统瘫痪，小的缺陷的可能就是导致操作不方便而已。<br>根据程序缺陷的大小可以将程序缺陷分成以下几个错误严重程度：</p>
+<blockquote>
+<p>1)Critical：不能执行正常工作功能或重要功能。或者危及人身安全。<br>2)Major：严重地影响系统要求或基本功能的实现，且没有办法更正。（重新安装或重新启动该软件不属于更正办法）<br>3)Minor：严重地影响系统要求或基本功能的实现，但存在合理的更正办法。（重新安装或重新启动该软件不属于更正办法）<br>4)Cosmetic：使操作者不方便或遇到麻烦，但它不影响执行工作功能或重要功能。<br>5)Other：其它错误。</p>
+</blockquote>
+<p>同时，根据程序缺陷的严重程度，我们给出几种处理优先级：</p>
+<blockquote>
+<p>1)Resolve Immediately：缺陷必须被立即解决。<br>2)Normal Queue：缺陷需要正常排队等待修复或列入软件发布清单。<br>3)Not Urgent：缺陷可以在方便时被纠正。</p>
+</blockquote>
+<h2 id="1-3-漏洞演示"><a href="#1-3-漏洞演示" class="headerlink" title="1.3 漏洞演示"></a>1.3 漏洞演示</h2><h3 id="1-3-1-常见问题一："><a href="#1-3-1-常见问题一：" class="headerlink" title="1.3.1 常见问题一："></a>1.3.1 常见问题一：</h3><p><strong>● 统一性</strong><br>不要在软件中使用中英文混合的提示，比如对于用户的操作提示，不要一会用“error”一会用“错误”；一会用“succeed”另一会用“成功”总之要统一。某局长使用心得：删除的时候提示Error，幸亏我英语水平好，可是你换成中文不行吗？<br>比如在我们开发过的系统出现过：<br>1)operation is  succeed，具体看一下我们公司jira中哪个系统出现的问题。<br>2)另外，项目初期阶段，日期控件有的采用中文，有的采用英文形式。</p>
+<h3 id="1-3-2-常见问题二："><a href="#1-3-2-常见问题二：" class="headerlink" title="1.3.2 常见问题二："></a>1.3.2 常见问题二：</h3><p><strong>● 容错性</strong><br>对于保存提交的数据输入信息，在输入长度方面要么就限制用户的输入，要么就在客户端给出用户的醒目的提示、判断。不要出现系统崩溃，保存缓慢系统等无法响应等现象。<br>做好容错处理，异常要及时捕获，别输出到日志文件中，不要将异常抛出到前台界面，这样也会造成信息泄露的漏洞。</p>
+<h3 id="1-3-3-常见问题三："><a href="#1-3-3-常见问题三：" class="headerlink" title="1.3.3 常见问题三："></a>1.3.3 常见问题三：</h3><p><strong>● 互动性</strong><br>在要求用户大量输入信息后，点击“保存”或者“提交”按钮，仅仅是因为用户的某个地方输入或者选中不正确，点击“确定”后发现所有输入的内容全部都被清空了，花费很长时间的输入，仅仅是因为某个地方的输入不正确，而把该用户的所有其他的输入地方的输入都清空了，假如你是这个软件的使用者，你肯定会感觉到很恼火的。（保存不成功也可以理解，但是不能把用户所有的输入信息全部清空吧，就算你清空你也至少告诉用户是什么输入错误，让用户知道怎么重新输入，才能保存成功）。<br>另外，在需要用户输入信息的时候，特别是填写个人信息的资料的时候，必填项后面，一律要用*等醒目的提示。让用户知道这个地方是必填写的。<br>还有，下拉框不选值的时候，应该有个默认值，并且要多检查程序中多处下拉框，因为很多情况下下拉框取不到值。我们的有些系统，有些地方，现在的下拉框取不到任何值。</p>
+<h3 id="1-3-4-常见问题四："><a href="#1-3-4-常见问题四：" class="headerlink" title="1.3.4 常见问题四："></a>1.3.4 常见问题四：</h3><p><strong>● 用户体验</strong><br>页面上的提示信息要让用户明白，比如不要对用户使用“记录”、“字段”、“ID”等一些很专业的术语。<br>举例：比如电商项目中，用户下单失败，你给用户一个提示，要求用户根据订单号去进行对应的重新下单操作。订单号是开发人员为方便数据库操作设定的一个唯一键约束，是给开发人员用的，那么长一串数字，你要求用户记住，这是多不合理的体验。<br>另外，对于编辑功能，点击“编辑”后，所有的值都要默认保持编辑前的初始值。比如某员工的籍贯是“上海市”，点击“编辑”按钮后，在籍贯这个地方默认的仍然是“上海市”。<br>其他字段信息也是如此。</p>
+<h3 id="1-3-5-常见问题五："><a href="#1-3-5-常见问题五：" class="headerlink" title="1.3.5 常见问题五："></a>1.3.5 常见问题五：</h3><p><strong>● 兼容性</strong><br>现在遇到的情况是程序人员的浏览器的版本都比较高（比如IE10，IE11），在他们的开发机器上确实没有问题，但是在用户的环境中(比如用户环境中Winxp机器上的IE8.0浏览器下)就有问题。<br>同时兼容性还要考虑移动平台的兼容，比如手机和平板，还要考虑不同的手机系统，以及不同的手机分辨率、不同的网络类型（WIFI、3G、4G）下的情况。<br>另外一些常用软件的兼容也需要考虑，比如导出操作，导出的EXCEL等OFFICE文件要考虑版本之间的兼容性。</p>
+<h3 id="1-3-6-常见问题六："><a href="#1-3-6-常见问题六：" class="headerlink" title="1.3.6 常见问题六："></a>1.3.6 常见问题六：</h3><p><strong>● 互动性</strong><br>对于所有的删除信息在删除之前都要给出是否删除确认的提示或者放弃的提示。<br>扩展下：不仅仅是删除，包括危险操作之前、或者改变数据状态等。<br>另外，新增/修改信息保存提交后，系统应该给出“保存/提交/修改成功”提示信息，并自动更新显示。</p>
+<h3 id="1-3-7-常见问题七："><a href="#1-3-7-常见问题七：" class="headerlink" title="1.3.7 常见问题七："></a>1.3.7 常见问题七：</h3><p><strong>● 易用性</strong><br>对于要求用户大量录入信息的页面，要支持Tab键的输入，Tab键的走向要一般要遵循从做左到右，从上到下的的原则。</p>
+<h3 id="1-3-8-常见问题八："><a href="#1-3-8-常见问题八：" class="headerlink" title="1.3.8 常见问题八："></a>1.3.8 常见问题八：</h3><p><strong>● 错别字</strong><br>另外，要对程序中的错别字进行检查，比如把“登录”写成“登陆”；把“我同意”改成“我统一”。<br>目前：很多外面的系统都把“登录”写成“登陆”，其实这样是不正确的。<br>举例：如果系统中首页中的错别字，属于优先级比较高的问题。</p>
+<h3 id="1-3-9-常见问题九："><a href="#1-3-9-常见问题九：" class="headerlink" title="1.3.9 常见问题九："></a>1.3.9 常见问题九：</h3><p><strong>● 开发人员纰漏</strong><br>开发人员经常会在程序调试中加入一些弹框输出操作，但是后来又忘记删除这些调试信息，这些调试信息给用户造成误解，认为该调试信息是系统严重的Bug。<br>程序提交测试之前，程序员必须要仔细检查，删除该类型的调试信息。</p>
+<h3 id="1-3-10-常见问题十："><a href="#1-3-10-常见问题十：" class="headerlink" title="1.3.10 常见问题十："></a>1.3.10 常见问题十：</h3><p><strong>● 界面UI</strong><br>界面布局缺陷：比如“删除”按钮和“保存”按钮挨得很近（这样很容易造成用户的误操作）。（注意关闭、删除、退出按钮与保存、下一步等按钮的距离。类似的按钮应按此规则排列分布。另外，注意按钮的大小是合理一致。<br>界面上删除按钮和保存按钮挨得很近。结果有些操作不熟练的业务人员，很容易误按，因此注意关闭、删除、退出按钮与保存、下一步等按钮的距离。类似的按钮应按此规则排列分布。</p>
+<h3 id="1-3-11-常见问题十一："><a href="#1-3-11-常见问题十一：" class="headerlink" title="1.3.11 常见问题十一："></a>1.3.11 常见问题十一：</h3><p><strong>● 资源释放</strong><br>对于有资源连接的地方（比如数据库、文件、索引等），使用完毕后要及时关闭。否则会造成系统资源内存泄漏。<br>这样的问题，要在编码阶段就需要避免，否则到最后上线，用户量激增后，用户体验会很差，甚至造成系统崩溃。</p>
+<h3 id="1-3-12-常见问题十二："><a href="#1-3-12-常见问题十二：" class="headerlink" title="1.3.12 常见问题十二："></a>1.3.12 常见问题十二：</h3><p><strong>● 性能体验</strong><br>对于经常大数据量的查询，对于查询的关键字段是不是要考虑使用到索引等或者其它方法提高查询的效率，2-5-8原则。<br>对提高查询效率，1)可以考虑对查询关键字建立索引、2)可以考虑添加缓存、3)可以考虑添加文件索引(lucene等)<br>PS:2-5-8原则</p>
+<blockquote>
+<p>就是当用户能够在2秒以内得到响应时，会感觉系统的响应很快；<br>当用户在2-5秒之间得到响应时，会感觉系统的响应速度还可以；<br>当用户在5-8秒以内得到响应时，会感觉系统的响应速度很慢，但是还可以接受；<br>而当用户在超过8秒后仍然无法得到响应时，会感觉系统糟透了，或者认为系统已经失去响应，而选择离开这个Web站点，或者发起第二次请求。</p>
+</blockquote>
+<h3 id="1-3-13-常见问题十三："><a href="#1-3-13-常见问题十三：" class="headerlink" title="1.3.13 常见问题十三："></a>1.3.13 常见问题十三：</h3><p><strong>● 接口</strong><br>程序在接口方面容易出错。1)内部借口：事先协商好借口规范，入参是多少，出参是多少；2)外部借口：做好容错处理，如果对方借口不通，要做好应答。</p>
+<h3 id="1-3-14-常见问题十四："><a href="#1-3-14-常见问题十四：" class="headerlink" title="1.3.14 常见问题十四："></a>1.3.14 常见问题十四：</h3><p><strong>● 安全性</strong><br><strong>● SQL注入</strong><br>SQL语言对于特殊字符的处理，尤其是查询语句的单引号的处理，<br>SQL注入本质有2个关键条件：</p>
+<blockquote>
+<p>第一个是用户能够控制输入。<br>第二个是原本程序要执行的代码，拼接了用户输入的数据。</p>
+</blockquote>
+<p>比如在文本框中输入‘ or ’1‘=’1，看是否构成：<br>Select <em> FROM member Where username=’magci’and password=’’ or ‘1’=’1’<br>‘1’=‘1’是永真的，这条SQL语句是能通过验证的。<br><strong>● XSS</strong><br>任一输入文本域输入：<script>alert(“xss”);</script>，提交保存，下次再次访问时，直接把用户的输入直接反射给浏览器，如下图：<br><img src="http://www.taneroom.cn/images/2016/11/25/20161123173617520.png" alt="enter description here" title="XSS攻击"><br> <strong>● 将sessionId拼接在param里</strong><br>现在网站开发已经注意到：登录网站进入其内部网页后，直接拷贝网址，然后粘贴到另一浏览器，如果GET请求的param参数里面拼接了sessionId，则直接可以绕过登录。<br><strong>● 给session会话设置合理的失效时间</strong><br>对于需要登录的系统，在用户不操作的一定时间内，出于安全性考虑，最好要让用户重新登录才能重新使用该系统。<br><strong>● 关闭窗口或者窗口tab页应该让session失效</strong><br>现在很多网站没有做这个设计，当我关闭浏览器或者关闭网站对应的tab页，应该让网站的session失效。没有这个设计，如果用户在一些公共场合，忘记关电脑的话，别人就可以通过浏览器历史直接进入网站后台，而不用登录。<br><strong>● 配置文件中尽量不要出现用户名密码</strong><br>有些文件在ini等配置文件中写出了管理员口令密码等信息，而且是明文的!这是一个安全隐患。如果万不得已要写到配置文件中，也尽量加密处理。<br><em>*● 合理处理弹框</em></em><br>安全缺陷还可能存在于弹出的子窗口。有些设计不严格的软件，在主页面关闭的时候子页面还可以运行，这是一个缺陷。</p>
+<h2 id="1-4-修复方案"><a href="#1-4-修复方案" class="headerlink" title="1.4 修复方案"></a>1.4 修复方案</h2><blockquote>
+<p>1)首先提高开发人员的安全意识，对一些常见的安全隐患应该有自己敏感的嗅觉，在平时的开发中尽量避免出现这些错误<br>2)配合测试人员，找出对应的缺陷，制定对应的修复方案，然后修复升版。</p>
+</blockquote>
+<h2 id="1-5-相关参考"><a href="#1-5-相关参考" class="headerlink" title="1.5 相关参考"></a>1.5 相关参考</h2><p><a href="http://blog.csdn.NET/jcy58/article/details/51931652" target="_blank" rel="external">http://blog.csdn.NET/jcy58/article/details/51931652</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/donate/wechat.png" alt="TaneRoom wechat" style="width: 200px; max-width: 100%;"/>
+    <div>请博主喝一杯咖啡！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web安全/" rel="tag"># web安全</a>
+          
+            <a href="/tags/文件下载漏洞/" rel="tag"># 文件下载漏洞</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/25/web安全（7）-任意文件下载漏洞/" rel="next" title="web安全（7）-- 任意文件下载漏洞">
+                <i class="fa fa-chevron-left"></i> web安全（7）-- 任意文件下载漏洞
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/11/25/web安全（8）-程序缺陷/"
+     data-title="web安全（8）-- 程序缺陷"
+     data-content=""
+     data-url="http://www.taneroom.cn/2016/11/25/web安全（8）-程序缺陷/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/25/web安全（8）-程序缺陷/"
+           data-title="web安全（8）-- 程序缺陷" data-url="http://www.taneroom.cn/2016/11/25/web安全（8）-程序缺陷/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="TaneRoom" />
+          <p class="site-author-name" itemprop="name">TaneRoom</p>
+          <p class="site-description motion-element" itemprop="description">低调的码农</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/taneroom/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2711247437" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-漏洞描述"><span class="nav-number">1.</span> <span class="nav-text">1.1 漏洞描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-漏洞危害"><span class="nav-number">2.</span> <span class="nav-text">1.2 漏洞危害</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-漏洞演示"><span class="nav-number">3.</span> <span class="nav-text">1.3 漏洞演示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-常见问题一："><span class="nav-number">3.1.</span> <span class="nav-text">1.3.1 常见问题一：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-常见问题二："><span class="nav-number">3.2.</span> <span class="nav-text">1.3.2 常见问题二：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-3-常见问题三："><span class="nav-number">3.3.</span> <span class="nav-text">1.3.3 常见问题三：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-4-常见问题四："><span class="nav-number">3.4.</span> <span class="nav-text">1.3.4 常见问题四：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-5-常见问题五："><span class="nav-number">3.5.</span> <span class="nav-text">1.3.5 常见问题五：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-6-常见问题六："><span class="nav-number">3.6.</span> <span class="nav-text">1.3.6 常见问题六：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-7-常见问题七："><span class="nav-number">3.7.</span> <span class="nav-text">1.3.7 常见问题七：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-8-常见问题八："><span class="nav-number">3.8.</span> <span class="nav-text">1.3.8 常见问题八：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-9-常见问题九："><span class="nav-number">3.9.</span> <span class="nav-text">1.3.9 常见问题九：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-10-常见问题十："><span class="nav-number">3.10.</span> <span class="nav-text">1.3.10 常见问题十：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-11-常见问题十一："><span class="nav-number">3.11.</span> <span class="nav-text">1.3.11 常见问题十一：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-12-常见问题十二："><span class="nav-number">3.12.</span> <span class="nav-text">1.3.12 常见问题十二：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-13-常见问题十三："><span class="nav-number">3.13.</span> <span class="nav-text">1.3.13 常见问题十三：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-14-常见问题十四："><span class="nav-number">3.14.</span> <span class="nav-text">1.3.14 常见问题十四：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-修复方案"><span class="nav-number">4.</span> <span class="nav-text">1.4 修复方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-相关参考"><span class="nav-number">5.</span> <span class="nav-text">1.5 相关参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TaneRoom</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"taneroom"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("BnRa0PjEwPETnK8UggnNxrvQ-gzGzoHsz", "gTNTrFanjWAJhrkpXA6VDjbf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>
