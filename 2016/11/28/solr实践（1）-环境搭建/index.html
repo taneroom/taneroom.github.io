@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="web安全,文件上传漏洞," />
+  <meta name="keywords" content="solr," />
 
 
 
@@ -84,31 +84,22 @@
 
 
 
-<meta name="description" content="1.1 漏洞描述上传漏洞这个顾名思义，就是攻击者通过上传木马文件，直接得到WEBSHELL，危害等级超级高，现在的入侵中上传漏洞也是常见的漏洞。导致该漏洞的原因在于代码作者没有对访客提交的数据进行检验或者过滤不严，可以直接提交修改过的数据绕过扩展名的检验。
-1.2 漏洞危害
-1)可以得到WEBSHELL2)上传木马文件，可以导致系统瘫痪
-
-1.3 漏洞演示我们来看看下面这段文件上传代码,使用的是c">
+<meta name="description" content="1 所需软件软件版本：jdk1.8、tomcat8，solr6为了学习方便，下载tomcat的时候尽量下载绿色zip版的，直接解压到你的桌面，然后尽量改一下，启动的端口号，修改端口号在conf/server.xml中，这样修改一下就不会影响到你本机其他tomcat的运行了。如果你的tomcat小于8的话，启动后访问solr admin会遇到异常：Java.lang.NoSuchMethodErro">
 <meta property="og:type" content="article">
-<meta property="og:title" content="web安全（6）-- 任意文件上传漏洞">
-<meta property="og:url" content="http://www.taneroom.cn/2016/11/25/web安全（6）-任意文件上传漏洞/index.html">
+<meta property="og:title" content="solr实践（1）-- 环境搭建">
+<meta property="og:url" content="http://www.taneroom.cn/2016/11/28/solr实践（1）-环境搭建/index.html">
 <meta property="og:site_name" content="TaneRoom">
-<meta property="og:description" content="1.1 漏洞描述上传漏洞这个顾名思义，就是攻击者通过上传木马文件，直接得到WEBSHELL，危害等级超级高，现在的入侵中上传漏洞也是常见的漏洞。导致该漏洞的原因在于代码作者没有对访客提交的数据进行检验或者过滤不严，可以直接提交修改过的数据绕过扩展名的检验。
-1.2 漏洞危害
-1)可以得到WEBSHELL2)上传木马文件，可以导致系统瘫痪
-
-1.3 漏洞演示我们来看看下面这段文件上传代码,使用的是c">
-<meta property="og:image" content="http://www.taneroom.cn/images/2016/11/25/20161121162117216.png">
-<meta property="og:image" content="http://www.taneroom.cn/images/2016/11/25/20161121162136323.png">
-<meta property="og:updated_time" content="2016-11-25T09:08:10.877Z">
+<meta property="og:description" content="1 所需软件软件版本：jdk1.8、tomcat8，solr6为了学习方便，下载tomcat的时候尽量下载绿色zip版的，直接解压到你的桌面，然后尽量改一下，启动的端口号，修改端口号在conf/server.xml中，这样修改一下就不会影响到你本机其他tomcat的运行了。如果你的tomcat小于8的话，启动后访问solr admin会遇到异常：Java.lang.NoSuchMethodErro">
+<meta property="og:image" content="http://www.taneroom.cn/images/2016/11/28/solr1.png">
+<meta property="og:image" content="http://www.taneroom.cn/images/2016/11/28/solr2.png">
+<meta property="og:image" content="http://www.taneroom.cn/images/2016/11/28/solr3.png">
+<meta property="og:image" content="http://www.taneroom.cn/images/2016/11/28/solr4.png">
+<meta property="og:image" content="http://www.taneroom.cn/images/2016/11/28/solr5.png">
+<meta property="og:updated_time" content="2016-11-28T03:30:02.320Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="web安全（6）-- 任意文件上传漏洞">
-<meta name="twitter:description" content="1.1 漏洞描述上传漏洞这个顾名思义，就是攻击者通过上传木马文件，直接得到WEBSHELL，危害等级超级高，现在的入侵中上传漏洞也是常见的漏洞。导致该漏洞的原因在于代码作者没有对访客提交的数据进行检验或者过滤不严，可以直接提交修改过的数据绕过扩展名的检验。
-1.2 漏洞危害
-1)可以得到WEBSHELL2)上传木马文件，可以导致系统瘫痪
-
-1.3 漏洞演示我们来看看下面这段文件上传代码,使用的是c">
-<meta name="twitter:image" content="http://www.taneroom.cn/images/2016/11/25/20161121162117216.png">
+<meta name="twitter:title" content="solr实践（1）-- 环境搭建">
+<meta name="twitter:description" content="1 所需软件软件版本：jdk1.8、tomcat8，solr6为了学习方便，下载tomcat的时候尽量下载绿色zip版的，直接解压到你的桌面，然后尽量改一下，启动的端口号，修改端口号在conf/server.xml中，这样修改一下就不会影响到你本机其他tomcat的运行了。如果你的tomcat小于8的话，启动后访问solr admin会遇到异常：Java.lang.NoSuchMethodErro">
+<meta name="twitter:image" content="http://www.taneroom.cn/images/2016/11/28/solr1.png">
 
 
 
@@ -136,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://www.taneroom.cn/2016/11/25/web安全（6）-任意文件上传漏洞/"/>
+  <link rel="canonical" href="http://www.taneroom.cn/2016/11/28/solr实践（1）-环境搭建/"/>
 
 
 
 
 
-  <title> web安全（6）-- 任意文件上传漏洞 | TaneRoom </title>
+  <title> solr实践（1）-- 环境搭建 | TaneRoom </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -283,7 +274,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://www.taneroom.cn/2016/11/25/web安全（6）-任意文件上传漏洞/">
+  <link itemprop="mainEntityOfPage" href="http://www.taneroom.cn/2016/11/28/solr实践（1）-环境搭建/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="TaneRoom">
@@ -307,7 +298,7 @@
             
             
               
-                web安全（6）-- 任意文件上传漏洞
+                solr实践（1）-- 环境搭建
               
             
           </h1>
@@ -320,8 +311,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-25T17:01:38+08:00">
-                2016-11-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-28T11:27:51+08:00">
+                2016-11-28
               </time>
             
 
@@ -339,8 +330,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web安全/" itemprop="url" rel="index">
-                    <span itemprop="name">web安全</span>
+                  <a href="/categories/solr实践/" itemprop="url" rel="index">
+                    <span itemprop="name">solr实践</span>
                   </a>
                 </span>
 
@@ -354,8 +345,8 @@
             
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
-                <a href="/2016/11/25/web安全（6）-任意文件上传漏洞/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/25/web安全（6）-任意文件上传漏洞/" itemprop="commentCount"></span>
+                <a href="/2016/11/28/solr实践（1）-环境搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/28/solr实践（1）-环境搭建/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -365,7 +356,7 @@
 
           
           
-             <span id="/2016/11/25/web安全（6）-任意文件上传漏洞/" class="leancloud_visitors" data-flag-title="web安全（6）-- 任意文件上传漏洞">
+             <span id="/2016/11/28/solr实践（1）-环境搭建/" class="leancloud_visitors" data-flag-title="solr实践（1）-- 环境搭建">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -390,18 +381,18 @@
       
 
       
-        <h2 id="1-1-漏洞描述"><a href="#1-1-漏洞描述" class="headerlink" title="1.1 漏洞描述"></a>1.1 漏洞描述</h2><p>上传漏洞这个顾名思义，就是攻击者通过上传木马文件，直接得到WEBSHELL，危害等级超级高，现在的入侵中上传漏洞也是常见的漏洞。<br>导致该漏洞的原因在于代码作者没有对访客提交的数据进行检验或者过滤不严，可以直接提交修改过的数据绕过扩展名的检验。</p>
-<h2 id="1-2-漏洞危害"><a href="#1-2-漏洞危害" class="headerlink" title="1.2 漏洞危害"></a>1.2 漏洞危害</h2><blockquote>
-<p>1)可以得到WEBSHELL<br>2)上传木马文件，可以导致系统瘫痪</p>
-</blockquote>
-<h2 id="1-3-漏洞演示"><a href="#1-3-漏洞演示" class="headerlink" title="1.3 漏洞演示"></a>1.3 漏洞演示</h2><p><img src="http://www.taneroom.cn/images/2016/11/25/20161121162117216.png" alt="enter description here" title="项目目录"><br>我们来看看下面这段文件上传代码,使用的是common-fileupload.jar和common-io.jar UploadServlet.Java访问路径/UploadServlet<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 文件上传</div><div class="line"> */</div><div class="line">protected void doPost(HttpServletRequest request, HttpServletResponse response) &#123;</div><div class="line">    String root = request.getServletContext().getRealPath("/upload");</div><div class="line">    DiskFileItemFactory factory = new DiskFileItemFactory();</div><div class="line">    ServletFileUpload upload = new ServletFileUpload(factory);</div><div class="line">    try &#123;</div><div class="line">        List&lt;FileItem&gt; list = upload.parseRequest(request);</div><div class="line">        for(FileItem it:list)&#123;</div><div class="line">            //如果是file文件类型</div><div class="line">            if(!it.isFormField())&#123;</div><div class="line">                it.write(new File(root+"/"+it.getName()));</div><div class="line">                response.getWriter().write("success");</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; catch (Exception e) &#123;</div><div class="line">        try &#123;</div><div class="line">            response.getWriter().write("exception");</div><div class="line">        &#125; catch (IOException e1) &#123;</div><div class="line">            e1.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>前端index.jsp有一个上传文件的表单<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;form  action=<span class="string">"/load/UploadServlet"</span> <span class="keyword">method</span>=<span class="string">"post"</span> enctype=<span class="string">"multipart/form-data"</span>&gt;</div><div class="line">    &lt;input <span class="keyword">type</span>=<span class="string">"file"</span> name=<span class="string">"file"</span>/&gt;</div><div class="line">    &lt;input <span class="keyword">type</span>=<span class="string">"submit"</span> value=<span class="string">"submit"</span>/&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
-<p>我们将项目发布到tomcat并且访问<a href="http://localhost:8080/load/" target="_blank" rel="external">http://localhost:8080/load/</a><br><img src="http://www.taneroom.cn/images/2016/11/25/20161121162136323.png" alt="enter description here" title="部署测试"><br>选择要上传的文件提交表单.文件上传也成功,在upload目录下也有我们所上传的文件. (如果是你一个刚毕业刚入行的新人,你可能看不出任何问题),可能很多老鸟大神都知道这个上传功能存在什么问题,要骂我sb! 对没错,这个功能还有一个最大的问题就是没有对上传的文件格式做限制,如果我这里实现写好了一个脚本a.jsp代码如下<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;%@page import=<span class="string">"java.io.File"</span>%&gt;</div><div class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=utf-8"</span> pageEncoding=<span class="string">"utf-8"</span>%&gt;</div><div class="line">&lt;%</div><div class="line">    String root = request.getServletContext().getRealPath(<span class="string">""</span>);</div><div class="line">    out.write(<span class="string">"系统部署绝对路径:"</span>+root);</div><div class="line">    File <span class="keyword">file</span> = new File(root+<span class="string">"/index.jsp"</span>);</div><div class="line">    <span class="keyword">file</span>.<span class="keyword">delete</span>();</div><div class="line">%&gt;</div></pre></td></tr></table></figure></p>
-<p>上传完毕,我们在访问localhost:8080/load/upload/a.jsp，然后你在返回你就会发现一件恐怖的事情,这里不限于做删除操作,还可以自定义主页,看你自己怎么写了！ 所以说我们在做上传的时候必须要对上传的文件格式做处理,在上传的时候加入一句判断语句(当然只判断后缀,还可能存在一些问题,最好在加上判断文件前4个字节一起判断（不同文件类型前4字节不同）,这样就能很好的避免上述问题！</p>
-<h2 id="1-4-修复方案"><a href="#1-4-修复方案" class="headerlink" title="1.4 修复方案"></a>1.4 修复方案</h2><blockquote>
-<p>1)对文件格式限制，只允许某些格式上传<br>2)对文件格式进行校验，前端跟服务器都要进行校验（前端校验扩展名，服务器校验扩展名、Content_Type等）<br>3)将上传目录防止到项目工程目录之外，当做静态资源文件路径，并且对文件的权限进行设定，禁止文件下的执行权限。</p>
-<h2 id="1-5-相关参考"><a href="#1-5-相关参考" class="headerlink" title="1.5 相关参考"></a>1.5 相关参考</h2><p><a href="http://blog.csdn.NET/worn_xiao/article/details/52357167" target="_blank" rel="external">http://blog.csdn.NET/worn_xiao/article/details/52357167</a><br><a href="http://www.ituring.com.cn/article/177592" target="_blank" rel="external">http://www.ituring.com.cn/article/177592</a><br><a href="http://sec.chinabyte.com/352/13843352.shtml" target="_blank" rel="external">http://sec.chinabyte.com/352/13843352.shtml</a><br><a href="http://www.2cto.com/article/201602/490414.html" target="_blank" rel="external">http://www.2cto.com/article/201602/490414.html</a></p>
-</blockquote>
+        <h2 id="1-所需软件"><a href="#1-所需软件" class="headerlink" title="1 所需软件"></a>1 所需软件</h2><p>软件版本：jdk1.8、tomcat8，solr6<br>为了学习方便，下载tomcat的时候尽量下载绿色zip版的，直接解压到你的桌面，然后尽量改一下，启动的端口号，修改端口号在conf/server.xml中，这样修改一下就不会影响到你本机其他tomcat的运行了。<br>如果你的tomcat小于8的话，启动后访问solr admin会遇到异常：<br>Java.lang.NoSuchMethodError: javax.servlet.ServletInputStream.isFinished()<br>如果你启动时看到这个，恭喜你，该升级tomcat了，换成8就OK了。</p>
+<h2 id="2-解压目录"><a href="#2-解压目录" class="headerlink" title="2 解压目录"></a>2 解压目录</h2><p>下载solr，我这里下载的是solr-6.2.0<br>打开看一眼，目录结构是这样的，其中server是主要用到的（solr本身集成了服务这里就不说了）<br>目录结构如下：<br><img src="http://www.taneroom.cn/images/2016/11/28/solr1.png" alt="enter description here" title="solr6.2.0包的目录结构"></p>
+<h2 id="3-环境配置"><a href="#3-环境配置" class="headerlink" title="3 环境配置"></a>3 环境配置</h2><p>在我们之前配置好的tomcat的webapp目录下新建一个solr的文件夹，然后拷贝solr6.2.0包下面server/solr-webapp/webapp中的内容到tomcat新建的solr文件夹下，然后拷贝solr6.2.0下面server/lib/ext中的jar包到新建的solr下面的WEB-INF\lib中，最后拷贝solr6.2.0下面server\resources中log4j.properties到新建的solr的WEB-INF中。这样文件就拷贝完毕。<br>然后我们修改一下新建的web.xml，如下：</p>
+<p><env-entry></env-entry></p>
+<p><env-entry-name>solr/home</env-entry-name></p>
+<p><env-entry-value>D:/workspace/solr_home（你的solr_home）</env-entry-value></p>
+<p><env-entry-type>java.lang.String</env-entry-type><br><br>这里默认是注解掉的，放开注解，并将<env-entry-value>中的值修改为你的solrhome目录（solrhome目录主要配置索引存储路径，路径可自行选择）。<br>最后复制solr-6.2.0\server\solr中的所有文件到solr_home中，并新建new_core文件夹。<br>具体如下图<br><img src="http://www.taneroom.cn/images/2016/11/28/solr2.png" alt="enter description here" title="solr_home的目录结构"></env-entry-value></p>
+<h2 id="4-测试运行"><a href="#4-测试运行" class="headerlink" title="4 测试运行"></a>4 测试运行</h2><p>启动tomcat，访问首页：<a href="http://localhost:8080/solr/index.html" target="_blank" rel="external">http://localhost:8080/solr/index.html</a><br>看之前的前辈写的之前版本的教程，提供访问首页的地址是 <a href="http://localhost:8080/solr" target="_blank" rel="external">http://localhost:8080/solr</a> ，在6之后不行，如果不加index.html，会出现404。<br>访问成功之后的页面是这样的，如下图：<br><img src="http://www.taneroom.cn/images/2016/11/28/solr3.png" alt="enter description here" title="访问成功的页面"><br>点击core admin添加core，添加无异常，到此solr部署完毕。<br>ok 截止目前 solr6 的基本环境已经搭建完成啦。<br>下一篇我们将通过java程序访问solr数据。</p>
+<h2 id="5-异常及解决方法"><a href="#5-异常及解决方法" class="headerlink" title="5 异常及解决方法"></a>5 异常及解决方法</h2><p>添加core时，点击Add Core，报了一个Can’t find resource ‘solrconfig.xml’ in classpath or ‘D:\Projects\solr_home\new_core’的异常，如下图。<br><img src="http://www.taneroom.cn/images/2016/11/28/solr4.png" alt="Can&#39;t find resource &#39;solrconfig.xml&#39; in classpath or &#39;D:\Projects\solr_home\new_core&#39;" title="添加core时的异常"><br>在【new_core】文件夹中添加core.properties配置，内容如下：<br>name=new_core<br>这个name的值实际上就core的名称，可以任意命名，为了保证统一和方便阅读，个人觉得最好和文件夹名称一致。<br>4、将【solr-6.2.0\example\example-DIH\solr\solr】下的conf文件夹拷贝到【new_core】文件夹下。<br>5、solr-5.0 以上默认对schema的管理是使用managed-schema，不能手动修改，需要使用Schema Restful的API操作。<br>如果要想手动修改配置，把【conf】文件夹中managed-schema拷贝一份修改为schema.xml，在solrconfig.xml中修改如下</p>
+<p><codecfactory class="solr.SchemaCodecFactory"><br><!-- 解除managed-schema管理模式 start --></codecfactory></p>
+<p><schemafactory class="ClassicIndexSchemaFactory"><br><!-- 解除managed-schema管理模式 end --><br>重启tomcat8，可能会报错，查看tomcat日志发现，比喻:<br>缺少DataImportHandler的jar等，那么将【solr-6.0.0\dist】下的solr-dataimporthandler-6.0.0.jar和solr-dataimporthandler-extras-6.0.0.jar<br>拷贝到【apache-tomcat-8.0.35\webapps\solr\WEB-INF\lib】下。<br>重启tomcat8。如果缺少其他jar包，根据报错信息添加即可。<br>如果没有异常，访问：【<a href="http://localhost:8080/solr/index.html/】" target="_blank" rel="external">http://localhost:8080/solr/index.html/】</a><br>选择new_core，会出现如下界面：<br><img src="http://www.taneroom.cn/images/2016/11/28/solr5.png" alt="enter description here" title="new_core配置成功的页面"><br>至此其实由于没有索引数据，其实solr是个空壳，那么下面写一个应用程序插入solr索引数据。<br>参考：<a href="http://www.open-open.com/lib/view/open1452062296995.html" target="_blank" rel="external">http://www.open-open.com/lib/view/open1452062296995.html</a></schemafactory></p>
+<h2 id="6-相关参考"><a href="#6-相关参考" class="headerlink" title="6 相关参考"></a>6 相关参考</h2><p><a href="http://blog.csdn.net/java_zone/article/details/52965625" target="_blank" rel="external">http://blog.csdn.net/java_zone/article/details/52965625</a><br><a href="http://f.dataguru.cn/thread-725044-1-1.html" target="_blank" rel="external">http://f.dataguru.cn/thread-725044-1-1.html</a></p>
 
       
     </div>
@@ -430,9 +421,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/web安全/" rel="tag"># web安全</a>
-          
-            <a href="/tags/文件上传漏洞/" rel="tag"># 文件上传漏洞</a>
+            <a href="/tags/solr/" rel="tag"># solr</a>
           
         </div>
       
@@ -441,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/25/web安全（5）-越权操作/" rel="next" title="web安全（5）-- 越权操作">
-                <i class="fa fa-chevron-left"></i> web安全（5）-- 越权操作
+              <a href="/2016/11/25/web安全（8）-程序缺陷/" rel="next" title="web安全（8）-- 程序缺陷">
+                <i class="fa fa-chevron-left"></i> web安全（8）-- 程序缺陷
               </a>
             
           </div>
@@ -450,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/25/web安全（7）-任意文件下载漏洞/" rel="prev" title="web安全（7）-- 任意文件下载漏洞">
-                web安全（7）-- 任意文件下载漏洞 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -468,10 +453,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/11/25/web安全（6）-任意文件上传漏洞/"
-     data-title="web安全（6）-- 任意文件上传漏洞"
+        <div class="ds-share flat" data-thread-key="2016/11/28/solr实践（1）-环境搭建/"
+     data-title="solr实践（1）-- 环境搭建"
      data-content=""
-     data-url="http://www.taneroom.cn/2016/11/25/web安全（6）-任意文件上传漏洞/">
+     data-url="http://www.taneroom.cn/2016/11/28/solr实践（1）-环境搭建/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -498,8 +483,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/11/25/web安全（6）-任意文件上传漏洞/"
-           data-title="web安全（6）-- 任意文件上传漏洞" data-url="http://www.taneroom.cn/2016/11/25/web安全（6）-任意文件上传漏洞/">
+      <div class="ds-thread" data-thread-key="2016/11/28/solr实践（1）-环境搭建/"
+           data-title="solr实践（1）-- 环境搭建" data-url="http://www.taneroom.cn/2016/11/28/solr实践（1）-环境搭建/">
       </div>
     
   </div>
@@ -616,7 +601,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-漏洞描述"><span class="nav-number">1.</span> <span class="nav-text">1.1 漏洞描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-漏洞危害"><span class="nav-number">2.</span> <span class="nav-text">1.2 漏洞危害</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-漏洞演示"><span class="nav-number">3.</span> <span class="nav-text">1.3 漏洞演示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-修复方案"><span class="nav-number">4.</span> <span class="nav-text">1.4 修复方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-相关参考"><span class="nav-number">5.</span> <span class="nav-text">1.5 相关参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-所需软件"><span class="nav-number">1.</span> <span class="nav-text">1 所需软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-解压目录"><span class="nav-number">2.</span> <span class="nav-text">2 解压目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-环境配置"><span class="nav-number">3.</span> <span class="nav-text">3 环境配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-测试运行"><span class="nav-number">4.</span> <span class="nav-text">4 测试运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-异常及解决方法"><span class="nav-number">5.</span> <span class="nav-text">5 异常及解决方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-相关参考"><span class="nav-number">6.</span> <span class="nav-text">6 相关参考</span></a></li></ol></div>
             
 
           </div>
