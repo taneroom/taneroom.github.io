@@ -269,6 +269,168 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.taneroom.cn/2016/11/28/solr实践（2）-Solr6-2-0从Mysql上导入数据/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="TaneRoom">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="TaneRoom">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="TaneRoom" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/28/solr实践（2）-Solr6-2-0从Mysql上导入数据/" itemprop="url">
+                  solr实践（2）-- Solr6.2.0从Mysql上导入数据
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-28T17:48:02+08:00">
+                2016-11-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/solr实践/" itemprop="url" rel="index">
+                    <span itemprop="name">solr实践</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2016/11/28/solr实践（2）-Solr6-2-0从Mysql上导入数据/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/28/solr实践（2）-Solr6-2-0从Mysql上导入数据/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/11/28/solr实践（2）-Solr6-2-0从Mysql上导入数据/" class="leancloud_visitors" data-flag-title="solr实践（2）-- Solr6.2.0从Mysql上导入数据">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>上一篇，我们介绍了如何搭建一个solr服务，这一篇，我们主要来实现一下，怎么将mysql的数据导入到solr服务中来，毕竟在平时的开发当中，首先肯定是将数据存在数据库的，所以对数据库数据建立索引很重要，下面废话不多说，进入主题。<br>上一篇，我们已经建立了solr_home目录，solr_home在项目中我们是用来存储索引的，所以这一篇就从这里开始。</p>
+<h2 id="1-创建Core-Admin"><a href="#1-创建Core-Admin" class="headerlink" title="1 创建Core Admin"></a>1 创建Core Admin</h2><p>在webapps中solrhome下新建一个文件夹名字叫做my_core（名字不固定，可以随便取，但是这个名字在后面的配置中会有所关联。）然后在my_core文件下新建一个名字叫做conf的文件夹（这个文件名字最后不要改。）然后把官网下下来的solr项目中solr-6.2.0\server\solr\configsets\data_driven_schema_configs\conf下的所有东西复制到conf中去。（注意不要复制错！）最后把solr-6.2.0\example\example-DIH\solr\db\conf下的admin-extra.html， admin-extra.menu-bottom.html ，admin-extra.menu-top.html三个文件也复制到conf中去。</p>
+<h2 id="2-配置相关包及其路径"><a href="#2-配置相关包及其路径" class="headerlink" title="2 配置相关包及其路径"></a>2 配置相关包及其路径</h2><p>把mysql所需的jar包和solr-6.2.0\dist下的solr-dataimporthandler-6.2.0.jar和solr-dataimporthandler-extras-6.2.0.jar都复制到项目WEB-INF\lib下。然后在solrconfig.xml文件中加入<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;lib <span class="attr">dir="D:/编程工具/tomcat/apache-tomcat-8.0.32-windows-x64/apache-tomcat-8.0.32/webapps/solr/WEB-INF/lib/"</span> <span class="attr">regex=".*\.jar"</span> /&gt;</div></pre></td></tr></table></figure></p>
+<p>就是把WEB-INF\lib里面的jar包配置到项目中，我这里用的是绝对地址。这段代码大约在solrconfig.xml的75行处，前面有一堆类似的代码。</p>
+<h2 id="3-建立数据库表"><a href="#3-建立数据库表" class="headerlink" title="3 建立数据库表"></a>3 建立数据库表</h2><p>在MYSQL中新建一张表。我这里的表名叫goods，你也可以自己建，这个没有要求，主要是之后的配置，按数据表配就行了。我的建表语句如下：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> solr;</div><div class="line"><span class="keyword">USE</span> solr;</div><div class="line"></div><div class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`goods`</span>;</div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`goods`</span> (</div><div class="line">  <span class="string">`id`</span> <span class="built_in">INT</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</div><div class="line">  <span class="string">`name`</span> <span class="built_in">VARCHAR</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  <span class="string">`number`</span> <span class="built_in">INT</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</div><div class="line">  <span class="string">`updateTime`</span> <span class="keyword">TIMESTAMP</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span>,</div><div class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</div><div class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">INNODB</span> AUTO_INCREMENT=<span class="number">5</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</div><div class="line"><span class="keyword">INSERT</span>  <span class="keyword">INTO</span> <span class="string">`goods`</span>(<span class="string">`id`</span>,<span class="string">`name`</span>,<span class="string">`number`</span>,<span class="string">`updateTime`</span>) <span class="keyword">VALUES</span></div><div class="line">(<span class="number">1</span>,<span class="string">'商品1'</span>,<span class="number">100</span>,<span class="string">'2016-11-28 16:48:57'</span>),</div><div class="line">(<span class="number">2</span>,<span class="string">'商品2'</span>,<span class="number">120</span>,<span class="string">'2016-11-28 16:48:57'</span>),</div><div class="line">(<span class="number">3</span>,<span class="string">'商品3'</span>,<span class="number">150</span>,<span class="string">'2016-11-28 16:48:57'</span>),</div><div class="line">(<span class="number">4</span>,<span class="string">'手机1'</span>,<span class="number">50</span>,<span class="string">'2016-11-28 17:44:29'</span>);</div></pre></td></tr></table></figure></p>
+<h2 id="4-添加data-config-xml"><a href="#4-添加data-config-xml" class="headerlink" title="4 添加data-config.xml"></a>4 添加data-config.xml</h2><p>在solrconfig.xml的<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;requestHandler name=<span class="string">"/select"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"solr.SearchHandler"</span>&gt;</div></pre></td></tr></table></figure></p>
+<p>之上添加：<br><figure class="highlight vbscript-html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler"&gt;</div><div class="line">    &lt;lst name="defaults"&gt;</div><div class="line">        &lt;str name="config"&gt;data-config.xml&lt;/str&gt;</div><div class="line">    &lt;/lst&gt;</div><div class="line">&lt;/requestHandler&gt;</div></pre></td></tr></table></figure></p>
+<p>然后在conf下新建data-config.xml文件。内容如下：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;?xml <span class="attr">version="1.0"</span> <span class="attr">encoding="UTF-8"?&gt;</span></div><div class="line">&lt;dataConfig&gt;</div><div class="line">    &lt;dataSource <span class="attr">name="source1"</span> <span class="attr">type="JdbcDataSource"</span> <span class="attr">driver="com.mysql.jdbc.Driver"</span></div><div class="line">        <span class="attr">url="jdbc:mysql://127.0.0.1:3306/solr"</span> <span class="attr">user="root"</span> <span class="attr">password="123456"</span> <span class="attr">batchSize="-1"</span> /&gt;</div><div class="line">    &lt;document&gt;</div><div class="line">        &lt;entity <span class="attr">name="goods"</span> <span class="attr">pk="id"</span>  <span class="attr">dataSource="source1"</span></div><div class="line">                <span class="attr">query="select</span> * from  goods<span class="string">"</span></div><div class="line">                deltaImportQuery="select * from goods where <span class="attr">id='$&#123;dih.delta.id&#125;'"</span></div><div class="line">                <span class="attr">deltaQuery="select</span> id from goods where updateTime &gt; '$&#123;dataimporter.last_index_time&#125;'<span class="string">"&gt;</span></div><div class="line">            &lt;field column="id<span class="string">" name="</span>id<span class="string">"/&gt;</span></div><div class="line">    　　　  &lt;field column="name<span class="string">" name="</span>name<span class="string">"/&gt;</span></div><div class="line">            &lt;field column="number<span class="string">" name="</span>number<span class="string">"/&gt;</span></div><div class="line">            &lt;field column="updateTime<span class="string">" name="</span>updateTime<span class="string">"/&gt;</span></div><div class="line">    　  &lt;/entity&gt;</div><div class="line">    &lt;/document&gt;</div><div class="line">&lt;/dataConfig&gt;</div></pre></td></tr></table></figure></p>
+<p>解释一下：<br>dataSource是数据库数据源。Entity就是一张表对应的实体，pk是主键，query是查询语句。Field对应一个字段，column是数据库里的column名，后面的name属性对应着Solr的Filed的名字。其中solrdata是数据库名，goods是表名。<br>其中deltaQuery是增量索引，原理是从数据库中根据deltaQuery指定的SQL语句查询出所有需要增量导入的数据的ID号。然后根据deltaImportQuery指定的SQL语句返回所有这些ID的数据，即为这次增量导入所要处理的数据。核心思想是：通过内置变量“${dih.delta.id}”和 “${dataimporter.last_index_time}”来记录本次要索引的id和最近一次索引的时间。<br>最后在conf文件下的managed-schema配置field信息：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;field <span class="attr">name="id"</span> <span class="attr">type="int"</span> <span class="attr">indexed="true"</span> <span class="attr">stored="true"</span> <span class="attr">required="true"</span> <span class="attr">multiValued="false"</span> /&gt;</div><div class="line">&lt;field <span class="attr">name="name"</span> <span class="attr">type="string"</span> <span class="attr">indexed="true"</span> <span class="attr">stored="false"/&gt;</span></div><div class="line">&lt;field <span class="attr">name="number"</span> <span class="attr">type="int"</span> <span class="attr">indexed="true"</span> <span class="attr">stored="false"/&gt;</span></div><div class="line">&lt;field <span class="attr">name="updateTime"</span> <span class="attr">type="date"</span> <span class="attr">indexed="true"</span> <span class="attr">stored="true"</span> /&gt;</div><div class="line"></div><div class="line">&lt;!--下面三个字段是系统本身不能删除的，删除会报错--&gt;</div><div class="line">&lt;field <span class="attr">name="_version_"</span> <span class="attr">type="long"</span> <span class="attr">indexed="true"</span> <span class="attr">stored="false"/&gt;</span></div><div class="line">&lt;field <span class="attr">name="_root_"</span> <span class="attr">type="string"</span> <span class="attr">indexed="true"</span> <span class="attr">stored="false"</span> <span class="attr">docValues="false"</span> /&gt;</div><div class="line">&lt;field <span class="attr">name="_text_"</span> <span class="attr">type="text_general"</span> <span class="attr">indexed="true"</span> <span class="attr">stored="false"</span> <span class="attr">multiValued="true"/&gt;</span></div></pre></td></tr></table></figure></p>
+<p>注意：id,name,number,updateTime是我们上面数据库的字段。下面三个field是系统本身的不能删除，否则会运行错误。</p>
+<h2 id="5-测试"><a href="#5-测试" class="headerlink" title="5 测试"></a>5 测试</h2><p>启动tomcat，并在URL中输入<a href="http://127.0.0.1:8080/solr/index.html" target="_blank" rel="external">http://127.0.0.1:8080/solr/index.html</a> 路径。在core Selector选择刚刚添加的core。<br><img src="http://www.taneroom.cn/images/2016/11/28/solr1.png" alt="enter description here" title="选择core"><br>选择刚刚添加的goods实体进行索引操作：我们这儿可以选择full-import或者delta-import（增量索引），选择增量索引需要把clean的勾给去掉，不然会清除之前的，增量的索引的初衷是对新增或者修改的记录重新索引，会追加到原有的索引文件当中。当我们选择full-import的时候，最好就是把原有的索引文件给清空重新索引。<br><img src="http://www.taneroom.cn/images/2016/11/28/solr2.png" alt="enter description here" title="导入数据"><br>索引成功如下如所示：<br><img src="http://www.taneroom.cn/images/2016/11/28/solr3.png" alt="enter description here" title="索引成功"><br>使用query进行测试，输入关键字查出了想要的结果：<br><img src="http://www.taneroom.cn/images/2016/11/28/solr4.png" alt="enter description here" title="query成功"><br>自此。mysql数据导入solr就顺利完成了，有什么问题下面留言吧</p>
+<h2 id="6-相关参考"><a href="#6-相关参考" class="headerlink" title="6 相关参考"></a>6 相关参考</h2><p><a href="http://blog.csdn.net/linzhiqiang0316/article/details/51464461" target="_blank" rel="external">http://blog.csdn.net/linzhiqiang0316/article/details/51464461</a><br><a href="http://blog.csdn.net/u010379996/article/details/51799418" target="_blank" rel="external">http://blog.csdn.net/u010379996/article/details/51799418</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://www.taneroom.cn/2016/11/28/solr实践（1）-环境搭建/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1802,150 +1964,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://www.taneroom.cn/2016/11/24/hello-world/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="TaneRoom">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.png">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="TaneRoom">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="TaneRoom" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/24/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-24T09:57:13+08:00">
-                2016-11-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <a href="/2016/11/24/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/24/hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/11/24/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1984,7 +2009,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
