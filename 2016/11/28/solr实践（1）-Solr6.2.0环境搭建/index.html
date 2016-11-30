@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="TaneRoom, 谭振" />
+  <meta name="keywords" content="solr," />
 
 
 
@@ -84,15 +84,20 @@
 
 
 
-<meta name="description" content="低调的码农">
-<meta property="og:type" content="website">
-<meta property="og:title" content="TaneRoom">
-<meta property="og:url" content="http://www.taneroom.cn/page/2/index.html">
+<meta name="description" content="1 所需软件软件版本：jdk1.8、tomcat8，solr6为了学习方便，下载tomcat的时候尽量下载绿色zip版的，直接解压到你的桌面，然后尽量改一下，启动的端口号，修改端口号在conf/server.xml中，这样修改一下就不会影响到你本机其他tomcat的运行了。如果你的tomcat小于8的话，启动后访问solr admin会遇到异常：Java.lang.NoSuchMethodErro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="solr实践（1）-- Solr6.2.0环境搭建">
+<meta property="og:url" content="http://www.taneroom.cn/2016/11/28/solr实践（1）-Solr6.2.0环境搭建/index.html">
 <meta property="og:site_name" content="TaneRoom">
-<meta property="og:description" content="低调的码农">
+<meta property="og:description" content="1 所需软件软件版本：jdk1.8、tomcat8，solr6为了学习方便，下载tomcat的时候尽量下载绿色zip版的，直接解压到你的桌面，然后尽量改一下，启动的端口号，修改端口号在conf/server.xml中，这样修改一下就不会影响到你本机其他tomcat的运行了。如果你的tomcat小于8的话，启动后访问solr admin会遇到异常：Java.lang.NoSuchMethodErro">
+<meta property="og:image" content="http://img.blog.csdn.net/20161128113959813">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129183012673">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129183035008">
+<meta property="og:updated_time" content="2016-11-30T01:43:20.920Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TaneRoom">
-<meta name="twitter:description" content="低调的码农">
+<meta name="twitter:title" content="solr实践（1）-- Solr6.2.0环境搭建">
+<meta name="twitter:description" content="1 所需软件软件版本：jdk1.8、tomcat8，solr6为了学习方便，下载tomcat的时候尽量下载绿色zip版的，直接解压到你的桌面，然后尽量改一下，启动的端口号，修改端口号在conf/server.xml中，这样修改一下就不会影响到你本机其他tomcat的运行了。如果你的tomcat小于8的话，启动后访问solr admin会遇到异常：Java.lang.NoSuchMethodErro">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161128113959813">
 
 
 
@@ -120,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://www.taneroom.cn/page/2/"/>
+  <link rel="canonical" href="http://www.taneroom.cn/2016/11/28/solr实践（1）-Solr6.2.0环境搭建/"/>
 
 
 
 
 
-  <title> TaneRoom </title>
+  <title> solr实践（1）-- Solr6.2.0环境搭建 | TaneRoom </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -157,9 +162,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -258,9 +261,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -269,7 +272,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://www.taneroom.cn/2016/11/24/hello-world/">
+  <link itemprop="mainEntityOfPage" href="http://www.taneroom.cn/2016/11/28/solr实践（1）-Solr6.2.0环境搭建/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="TaneRoom">
@@ -293,10 +296,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/11/24/hello-world/" itemprop="url">
-                  Hello World
-                </a>
+                solr实践（1）-- Solr6.2.0环境搭建
               
             
           </h1>
@@ -309,8 +309,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-24T09:57:13+08:00">
-                2016-11-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-28T11:27:51+08:00">
+                2016-11-28
               </time>
             
 
@@ -320,13 +320,31 @@
           </span>
 
           
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/solr实践/" itemprop="url" rel="index">
+                    <span itemprop="name">solr实践</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
-                <a href="/2016/11/24/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/24/hello-world/" itemprop="commentCount"></span>
+                <a href="/2016/11/28/solr实践（1）-Solr6.2.0环境搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/28/solr实践（1）-Solr6.2.0环境搭建/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -336,7 +354,7 @@
 
           
           
-             <span id="/2016/11/24/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
+             <span id="/2016/11/28/solr实践（1）-Solr6.2.0环境搭建/" class="leancloud_visitors" data-flag-title="solr实践（1）-- Solr6.2.0环境搭建">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -361,51 +379,100 @@
       
 
       
-        
-          
-          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in 
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/24/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h2 id="1-所需软件"><a href="#1-所需软件" class="headerlink" title="1 所需软件"></a>1 所需软件</h2><p>软件版本：jdk1.8、tomcat8，solr6<br>为了学习方便，下载tomcat的时候尽量下载绿色zip版的，直接解压到你的桌面，然后尽量改一下，启动的端口号，修改端口号在conf/server.xml中，这样修改一下就不会影响到你本机其他tomcat的运行了。<br>如果你的tomcat小于8的话，启动后访问solr admin会遇到异常：<br>Java.lang.NoSuchMethodError: javax.servlet.ServletInputStream.isFinished()<br>如果你启动时看到这个，恭喜你，该升级tomcat了，换成8就OK了。</p>
+<h2 id="2-解压目录"><a href="#2-解压目录" class="headerlink" title="2 解压目录"></a>2 解压目录</h2><p>下载solr，我这里下载的是solr-6.2.0<br>打开看一眼，目录结构是这样的，其中server是主要用到的（solr本身集成了服务这里就不说了）<br>目录结构如下：<br><img src="http://img.blog.csdn.net/20161128113959813" alt="enter description here" title="solr6.2.0包的目录结构"></p>
+<blockquote>
+<p>这里稍微解释一下<br>bin：有关solr的命令脚本都存在这个目录下面，这个跟java类似<br>contrib：社区贡献模块，它不属于正式源码部分，但是有可能在下一个版本被管理员纳入正式源码中<br>dist：solr打包发布的目录，有关solr的jar包和war包都在这，这个跟maven的target目录类似<br>docs：solr的API文档，不做多解释 example：官方提供的案例，值得我们仔细实践，是重要的参考资料 licenses：开源协议<br>server：solr的服务器端程序目录</p>
+</blockquote>
+<h2 id="3-环境配置"><a href="#3-环境配置" class="headerlink" title="3 环境配置"></a>3 环境配置</h2><p>在我们之前配置好的tomcat的webapp目录下新建一个solr的文件夹，然后拷贝solr6.2.0包下面server/solr-webapp/webapp中的内容到tomcat新建的solr文件夹下，然后拷贝solr6.2.0下面server/lib/ext中的jar包到新建的solr下面的WEB-INF\lib中，最后拷贝solr6.2.0下面server\resources中log4j.properties到新建的solr的WEB-INF中。这样文件就拷贝完毕。<br>然后我们修改一下新建的web.xml，如下：<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;env-<span class="built_in">entry</span>&gt;</div><div class="line">&lt;env-<span class="built_in">entry</span>-<span class="keyword">name</span>&gt;solr/home&lt;/env-<span class="built_in">entry</span>-<span class="keyword">name</span>&gt;</div><div class="line">&lt;env-<span class="built_in">entry</span>-<span class="keyword">value</span>&gt;D:/workspace/solr_home（你的solr_home）&lt;/env-<span class="built_in">entry</span>-<span class="keyword">value</span>&gt;</div><div class="line">&lt;env-<span class="built_in">entry</span>-<span class="keyword">type</span>&gt;java.lang.String&lt;/env-<span class="built_in">entry</span>-<span class="keyword">type</span>&gt;</div><div class="line">&lt;/env-<span class="built_in">entry</span>&gt;</div></pre></td></tr></table></figure></p>
+<p>这里默认是注解掉的，放开注解，并将<code>&lt;env-entry-value&gt;</code>中的值修改为你的solrhome目录（solrhome目录主要配置索引存储路径，路径可自行选择）。<br>最后复制solr-6.2.0\server\solr中的所有文件到solr_home中，具体如下图<br><img src="http://img.blog.csdn.net/20161129183012673" alt="enter description here" title="solr_home的目录结构"></p>
+<h2 id="4-测试运行"><a href="#4-测试运行" class="headerlink" title="4 测试运行"></a>4 测试运行</h2><p>启动tomcat，访问首页：<a href="http://localhost:8080/solr/index.html" target="_blank" rel="external">http://localhost:8080/solr/index.html</a><br>看之前的前辈写的之前版本的教程，提供访问首页的地址是 <a href="http://localhost:8080/solr" target="_blank" rel="external">http://localhost:8080/solr</a> ，在6之后不行，如果不加index.html，会出现404。<br>访问成功之后的页面是这样的，如下图：<br><img src="http://img.blog.csdn.net/20161129183035008" alt="enter description here" title="测试成功页面"><br>点击core admin添加core，添加无异常，到此solr部署完毕。<br>ok 截止目前 solr6 的基本环境已经搭建完成啦。<br>下一篇我们将通过java程序访问solr数据。</p>
+<h2 id="6-相关参考"><a href="#6-相关参考" class="headerlink" title="6 相关参考"></a>6 相关参考</h2><p><a href="http://blog.csdn.net/java_zone/article/details/52965625" target="_blank" rel="external">http://blog.csdn.net/java_zone/article/details/52965625</a><br><a href="http://f.dataguru.cn/thread-725044-1-1.html" target="_blank" rel="external">http://f.dataguru.cn/thread-725044-1-1.html</a><br><a href="http://iamyida.iteye.com/blog/2207813" target="_blank" rel="external">http://iamyida.iteye.com/blog/2207813</a></p>
+
       
     </div>
 
     <div>
       
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/donate/wechat.png" alt="TaneRoom wechat" style="width: 200px; max-width: 100%;"/>
+    <div>请博主喝一杯咖啡！</div>
+</div>
+
+
+      
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/solr/" rel="tag"># solr</a>
+          
+        </div>
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/25/web安全（8）-程序缺陷/" rel="next" title="web安全（8）-- 程序缺陷">
+                <i class="fa fa-chevron-left"></i> web安全（8）-- 程序缺陷
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/29/solr实践（2）-Solr6.2.0从Mysql上导入数据/" rel="prev" title="solr实践（2）-- Solr6.2.0从Mysql上导入数据">
+                solr实践（2）-- Solr6.2.0从Mysql上导入数据 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/11/28/solr实践（1）-Solr6.2.0环境搭建/"
+     data-title="solr实践（1）-- Solr6.2.0环境搭建"
+     data-content=""
+     data-url="http://www.taneroom.cn/2016/11/28/solr实践（1）-Solr6.2.0环境搭建/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
 
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -413,6 +480,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/28/solr实践（1）-Solr6.2.0环境搭建/"
+           data-title="solr实践（1）-- Solr6.2.0环境搭建" data-url="http://www.taneroom.cn/2016/11/28/solr实践（1）-Solr6.2.0环境搭建/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -432,8 +507,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -444,7 +528,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -506,6 +590,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-所需软件"><span class="nav-number">1.</span> <span class="nav-text">1 所需软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-解压目录"><span class="nav-number">2.</span> <span class="nav-text">2 解压目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-环境配置"><span class="nav-number">3.</span> <span class="nav-text">3 环境配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-测试运行"><span class="nav-number">4.</span> <span class="nav-text">4 测试运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-相关参考"><span class="nav-number">5.</span> <span class="nav-text">6 相关参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
@@ -604,6 +704,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
